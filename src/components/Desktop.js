@@ -3,6 +3,7 @@ import DesktopIcon from '../components/DesktopIcon';
 import aboutIcon from '../assets/computer-4.png';
 import projectsIcon from '../assets/directory_closed-4.png';
 import contactIcon from '../assets/modem-5.png'; // Import icon for Contact
+import recycleBinIcon from '../assets/directory_closed-4.png'; // Tambahkan icon Recycle Bin di desktop
 
 // Icon tambahan untuk semua halaman
 import heroIcon from '../assets/computer-4.png';
@@ -27,6 +28,7 @@ const icons = [
   { id: 9, label: 'Dream', icon: dreamIcon, window: 'dream' },
   { id: 10, label: 'Contact', icon: contactIcon, window: 'contact' }, // Add Contact icon
   { id: 11, label: '404', icon: notFoundIcon, window: 'notfound' },
+  { id: 12, label: 'Recycle Bin', icon: recycleBinIcon, window: 'recycleBin' },
 ];
 
 // Fungsi untuk menentukan posisi default icon (grid vertikal seperti Windows)

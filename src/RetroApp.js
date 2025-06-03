@@ -18,6 +18,7 @@ import openSound from './assets/sound/open.wav';
 import closeSound from './assets/sound/close.wav';
 import wallpaper1 from './assets/wallpaper1.jpg';
 import wallpaper2 from './assets/wallpaper2.jpg';
+import RecycleBin from './pages/RecycleBin';
 
 const windowList = [
   { name: 'hero', title: 'Hero', Component: Hero },
@@ -31,6 +32,7 @@ const windowList = [
   { name: 'dream', title: 'Dream', Component: Dream },
   { name: 'contact', title: 'Contact', Component: Contact },
   { name: 'notfound', title: '404', Component: NotFound },
+  { name: 'recycleBin', title: 'Recycle Bin', Component: (props) => <RecycleBin {...props} /> },
 ];
 
 function playRetroSound(type, enabled) {
@@ -60,6 +62,8 @@ function RetroApp() {
   const [zCounter, setZCounter] = useState(10);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [wallpaper, setWallpaper] = useState(wallpaperPresets[0]);
+  // State untuk recycle bin
+  const [closedWindows, setClosedWindows] = useState([]);
 
   // Helper: get zIndex for a window
   const getZIndex = (name) => {
@@ -80,6 +84,10 @@ function RetroApp() {
   };
 
   const handleCloseWindow = (windowName) => {
+    const winMeta = windowList.find(w => w.name === windowName);
+    if (winMeta && windowName !== 'recycleBin') {
+      setClosedWindows(prev => ([...prev, { name: windowName, title: winMeta.title }]));
+    }
     setOpenWindows(openWindows.filter(w => w.name !== windowName));
     setMinimized(minimized.filter(w => w !== windowName));
     playRetroSound('close', soundEnabled);
@@ -109,11 +117,33 @@ function RetroApp() {
     playRetroSound('click', soundEnabled);
   };
 
+  const handleRestoreClosedWindow = (windowName) => {
+    setClosedWindows(closedWindows.filter(w => w.name !== windowName));
+    handleOpenWindow(windowName);
+  };
+
+  const handleEmptyRecycleBin = () => setClosedWindows([]);
+
   const renderWindow = (name, title, Component) => {
     const isOpen = openWindows.some(w => w.name === name);
     const isMinimized = minimized.includes(name);
     if (!isOpen || isMinimized) return null;
     const zIndex = getZIndex(name);
+    // Untuk Recycle Bin, kirim props khusus
+    if (name === 'recycleBin') {
+      return (
+        <Window
+          key={name}
+          title={title}
+          onClose={() => handleCloseWindow(name)}
+          onMinimize={() => handleMinimizeWindow(name)}
+          onClick={() => handleFocusWindow(name)}
+          zIndex={zIndex}
+        >
+          <RecycleBin closedWindows={closedWindows} onRestoreWindow={handleRestoreClosedWindow} onEmpty={handleEmptyRecycleBin} />
+        </Window>
+      );
+    }
     return (
       <Window
         key={name}
