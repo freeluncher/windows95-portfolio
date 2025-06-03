@@ -1,3 +1,87 @@
+/* Retro style for portfolio */
+body {
+  background: #222;
+  color: #f8f8f2;
+  font-family: 'Press Start 2P', cursive, monospace;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: repeating-linear-gradient(45deg, #222 0 10px, #282828 10px 20px);
+}
+
+nav.navbar {
+  background: #1a1a1a;
+  border-bottom: 4px solid #ff00cc;
+  padding: 0.5rem 0;
+}
+nav.navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+nav.navbar a {
+  color: #00fff7;
+  text-decoration: none;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-shadow: 0 0 4px #ff00cc;
+  transition: color 0.2s;
+}
+nav.navbar a:hover {
+  color: #ff00cc;
+}
+
+main {
+  flex: 1;
+  padding: 2rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h1, h2, h3 {
+  font-family: 'Press Start 2P', cursive, monospace;
+  color: #ff00cc;
+  text-shadow: 2px 2px 0 #00fff7;
+}
+
+.btn {
+  background: #00fff7;
+  color: #222;
+  border: 2px solid #ff00cc;
+  font-family: 'Press Start 2P', cursive, monospace;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 0 8px #ff00cc;
+  margin: 1rem 0;
+  transition: background 0.2s, color 0.2s;
+}
+.btn:hover {
+  background: #ff00cc;
+  color: #00fff7;
+}
+
+footer.footer {
+  background: #1a1a1a;
+  color: #00fff7;
+  text-align: center;
+  padding: 1rem 0;
+  border-top: 4px solid #ff00cc;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+/* Retro font import */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 .App {
   text-align: center;
 }
@@ -35,4 +119,50 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Desktop retro styles */
+.desktop-area {
+  width: 100vw;
+  height: 100vh;
+  background: #008080;
+  position: relative;
+  overflow: hidden;
+}
+.desktop-icon {
+  position: absolute;
+  user-select: none;
+  padding: 8px 4px 4px 4px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.05);
+  box-shadow: 2px 2px 0 #0008;
+  transition: background 0.2s;
+}
+.desktop-icon:hover {
+  background: #c0c0c0;
+}
+.retro-window {
+  font-family: 'MS Sans Serif', 'Press Start 2P', monospace;
+  border: 2px solid #fff;
+  box-shadow: 4px 4px 0 #000;
+  background: #c0c0c0;
+  min-width: 320px;
+  min-height: 200px;
+  z-index: 10;
+}
+.window-title {
+  background: #000080;
+  color: #fff;
+  padding: 4px 8px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+}
+.window-content {
+  padding: 1rem;
+  background: #fff;
+  color: #222;
+  min-height: 120px;
 }
