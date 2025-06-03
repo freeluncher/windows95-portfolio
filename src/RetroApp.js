@@ -6,11 +6,9 @@ import Hero from './pages/Hero';
 import AboutMe from './pages/AboutMe';
 import Skills from './pages/Skills';
 import Projects from './pages/Projects';
-import Failures from './pages/Failures';
 import Gallery from './pages/Gallery';
 import Testimonials from './pages/Testimonials';
 import Blog from './pages/Blog';
-import Dream from './pages/Dream';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 import Taskbar from './components/Taskbar';
@@ -24,11 +22,9 @@ import heroIcon from './assets/computer-4.png';
 import aboutMeIcon from './assets/computer-4.png';
 import skillsIcon from './assets/skill.png';
 import projectsIcon from './assets/directory_closed-4.png';
-import failuresIcon from './assets/modem-5.png';
 import galleryIcon from './assets/camera.png';
 import testimonialsIcon from './assets/mydocs.png';
 import blogIcon from './assets/modem-5.png';
-import dreamIcon from './assets/computer-4.png';
 import contactIcon from './assets/modem-5.png';
 import notFoundIcon from './assets/directory_closed-4.png';
 import recycleBinIconEmpty from './assets/recycle_bin_empty.png';
@@ -39,11 +35,9 @@ const windowList = [
   { name: 'aboutMe', title: 'About Me', Component: AboutMe },
   { name: 'skills', title: 'Skills', Component: Skills },
   { name: 'projects', title: 'Projects', Component: Projects },
-  { name: 'failures', title: 'Failures', Component: Failures },
   { name: 'gallery', title: 'Gallery', Component: Gallery },
   { name: 'testimonials', title: 'Testimonials', Component: Testimonials },
   { name: 'blog', title: 'Blog', Component: Blog },
-  { name: 'dream', title: 'Dream', Component: Dream },
   { name: 'contact', title: 'Contact', Component: Contact },
   { name: 'notfound', title: '404', Component: NotFound },
   { name: 'recycleBin', title: 'Recycle Bin', Component: (props) => <RecycleBin {...props} /> },
@@ -54,11 +48,9 @@ const icons = [
   { id: 2, label: 'About Me', icon: aboutMeIcon, window: 'aboutMe' },
   { id: 3, label: 'Skills', icon: skillsIcon, window: 'skills' },
   { id: 4, label: 'Projects', icon: projectsIcon, window: 'projects' },
-  { id: 5, label: 'Failures', icon: failuresIcon, window: 'failures' },
   { id: 6, label: 'Gallery', icon: galleryIcon, window: 'gallery' },
   { id: 7, label: 'Testimonials', icon: testimonialsIcon, window: 'testimonials' },
   { id: 8, label: 'Blog', icon: blogIcon, window: 'blog' },
-  { id: 9, label: 'Dream', icon: dreamIcon, window: 'dream' },
   { id: 10, label: 'Contact', icon: contactIcon, window: 'contact' },
   { id: 11, label: '404', icon: notFoundIcon, window: 'notfound' },
   { id: 12, label: 'Recycle Bin', icon: recycleBinIconEmpty, window: 'recycleBin' },
