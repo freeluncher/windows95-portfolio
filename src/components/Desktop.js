@@ -7,10 +7,10 @@ import contactIcon from '../assets/modem-5.png';
 // Icon tambahan untuk semua halaman
 import heroIcon from '../assets/computer-4.png';
 import aboutMeIcon from '../assets/computer-4.png';
-import skillsIcon from '../assets/directory_closed-4.png';
+import skillsIcon from '../assets/skill.png';
 import failuresIcon from '../assets/modem-5.png';
-import galleryIcon from '../assets/computer-4.png';
-import testimonialsIcon from '../assets/directory_closed-4.png';
+import galleryIcon from '../assets/camera.png';
+import testimonialsIcon from '../assets/mydocs.png';
 import blogIcon from '../assets/modem-5.png';
 import dreamIcon from '../assets/computer-4.png';
 import notFoundIcon from '../assets/directory_closed-4.png';
