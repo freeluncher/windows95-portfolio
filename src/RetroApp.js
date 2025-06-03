@@ -16,6 +16,8 @@ import Taskbar from './components/Taskbar';
 import clickSound from './assets/sound/click.wav';
 import openSound from './assets/sound/open.wav';
 import closeSound from './assets/sound/close.wav';
+import wallpaper1 from './assets/wallpaper1.jpg';
+import wallpaper2 from './assets/wallpaper2.jpg';
 
 const windowList = [
   { name: 'hero', title: 'Hero', Component: Hero },
@@ -41,11 +43,23 @@ function playRetroSound(type, enabled) {
   audio.play();
 }
 
+const wallpaperPresets = [
+  { type: 'color', value: '#008080', name: 'Teal' },
+  { type: 'color', value: '#000080', name: 'Navy' },
+  { type: 'color', value: '#228B22', name: 'Forest Green' },
+  { type: 'color', value: '#000000', name: 'Black' },
+  { type: 'color', value: '#C0C0C0', name: 'Silver' },
+  { type: 'image', value: wallpaper1, name: 'Classic 1' },
+  { type: 'image', value: wallpaper2, name: 'Classic 2' },
+  // Tambahkan gambar lain jika ada di assets
+];
+
 function RetroApp() {
   const [openWindows, setOpenWindows] = useState([]); // [{name, z}]
   const [minimized, setMinimized] = useState([]);
   const [zCounter, setZCounter] = useState(10);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [wallpaper, setWallpaper] = useState(wallpaperPresets[0]);
 
   // Helper: get zIndex for a window
   const getZIndex = (name) => {
@@ -116,7 +130,7 @@ function RetroApp() {
 
   return (
     <div style={{width:'100vw',height:'100vh',overflow:'hidden'}}>
-      <Desktop onOpenWindow={handleOpenWindow} />
+      <Desktop onOpenWindow={handleOpenWindow} wallpaper={wallpaper} />
       {windowList.map(w => renderWindow(w.name, w.title, w.Component))}
       <Taskbar 
         openWindows={openWindows.map(w => w.name)} 
@@ -126,7 +140,37 @@ function RetroApp() {
         onStartMenu={handleOpenWindow}
         soundEnabled={soundEnabled}
         onToggleSound={() => setSoundEnabled(v => !v)}
+        onWallpaperMenu={() => setOpenWindows(ws => ws.some(w=>w.name==='wallpaper')?ws:[...ws,{name:'wallpaper',z:zCounter+1}])}
       />
+      {/* Window untuk memilih wallpaper */}
+      {openWindows.some(w=>w.name==='wallpaper') && (
+        <Window
+          key="wallpaper"
+          title="Wallpaper"
+          onClose={()=>handleCloseWindow('wallpaper')}
+          onMinimize={()=>handleMinimizeWindow('wallpaper')}
+          onClick={()=>handleFocusWindow('wallpaper')}
+          zIndex={getZIndex('wallpaper')}
+          top={120}
+          left={window.innerWidth/2-220}
+          minHeight={320}
+          width={440}
+        >
+          <div style={{marginBottom:8,fontSize:13,color:'#333'}}>Pilih Wallpaper Desktop:</div>
+          <div style={{display:'flex',flexWrap:'wrap',gap:12,minHeight:180}}>
+            {wallpaperPresets.map((wp,i)=>(
+              <div key={i} style={{margin:4,cursor:'pointer',border:wp===wallpaper?'2px solid #000':'1px solid #888',padding:4,borderRadius:4,background:'#fff'}} onClick={()=>setWallpaper(wp)}>
+                {wp.type==='color' ? (
+                  <div style={{width:60,height:40,background:wp.value}} />
+                ) : (
+                  <img src={wp.value} alt={wp.name} style={{width:60,height:40,objectFit:'cover'}} />
+                )}
+                <div style={{fontSize:12,textAlign:'center'}}>{wp.name}</div>
+              </div>
+            ))}
+          </div>
+        </Window>
+      )}
     </div>
   );
 }

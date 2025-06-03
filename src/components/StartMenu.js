@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SoundMenu from './SoundMenu';
+import wallpaperIcon from '../assets/directory_closed-4.png';
 
 const menuItems = [
   { label: 'Hero', window: 'hero' },
@@ -14,7 +15,7 @@ const menuItems = [
   { label: 'Contact', window: 'contact' },
 ];
 
-const StartMenu = ({ visible, onSelect, onClose, soundEnabled, onToggleSound }) => {
+const StartMenu = ({ visible, onSelect, onClose, soundEnabled, onToggleSound, onWallpaperMenu }) => {
   if (!visible) return null;
   return (
     <div style={{
@@ -50,6 +51,9 @@ const StartMenu = ({ visible, onSelect, onClose, soundEnabled, onToggleSound }) 
         </div>
       ))}
       <SoundMenu enabled={soundEnabled} onToggle={onToggleSound} />
+      <div style={{padding: '8px 16px', borderTop: '1px solid #b0b0b0', background: 'transparent', fontSize: 16, cursor: 'pointer', display:'flex',alignItems:'center',gap:8}} onClick={() => { onWallpaperMenu(); onClose(); }} title="Ganti Wallpaper Desktop">
+        <img src={wallpaperIcon} alt="Wallpaper" style={{width:18,height:18,marginRight:4}} /> Wallpaper
+      </div>
     </div>
   );
 };

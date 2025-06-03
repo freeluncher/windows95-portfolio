@@ -40,18 +40,30 @@ const getDefaultPosition = (index) => {
   };
 };
 
-const Desktop = ({ onOpenWindow }) => (
-  <div className="desktop-area" style={{position: 'relative', width: '100vw', height: '100vh', background: '#008080'}}>
-    {icons.map((icon, idx) => (
-      <DesktopIcon
-        key={icon.id}
-        icon={icon.icon}
-        label={icon.label}
-        onDoubleClick={() => onOpenWindow(icon.window)}
-        defaultPosition={getDefaultPosition(idx)}
-      />
-    ))}
-  </div>
-);
+const Desktop = ({ onOpenWindow, wallpaper }) => {
+  let bgStyle = {};
+  if (wallpaper) {
+    if (wallpaper.type === 'color') {
+      bgStyle.background = wallpaper.value;
+    } else if (wallpaper.type === 'image') {
+      bgStyle.backgroundImage = `url(${wallpaper.value})`;
+      bgStyle.backgroundSize = 'cover';
+      bgStyle.backgroundPosition = 'center';
+    }
+  }
+  return (
+    <div className="desktop-area" style={{position: 'relative', width: '100vw', height: '100vh', ...bgStyle}}>
+      {icons.map((icon, idx) => (
+        <DesktopIcon
+          key={icon.id}
+          icon={icon.icon}
+          label={icon.label}
+          onDoubleClick={() => onOpenWindow(icon.window)}
+          defaultPosition={getDefaultPosition(idx)}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default Desktop;

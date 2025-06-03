@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import Draggable from 'react-draggable';
 
-const Window = ({ title, children, onClose, onMinimize, onClick, zIndex }) => {
+const Window = ({ title, children, onClose, onMinimize, onClick, zIndex, top = 100, left = 200, minHeight = 0, width = 0 }) => {
   const nodeRef = useRef(null);
   return (
     <Draggable handle=".window-title" nodeRef={nodeRef}>
@@ -10,9 +10,10 @@ const Window = ({ title, children, onClose, onMinimize, onClick, zIndex }) => {
         className="retro-window"
         style={{
           position: 'absolute',
-          top: 100,
-          left: 200,
-          minWidth: 320,
+          top,
+          left,
+          minWidth: width || 320,
+          minHeight: minHeight || undefined,
           zIndex: zIndex || 10,
           background: '#c0c0c0',
           border: '2px solid #fff',
