@@ -70,3 +70,13 @@ const Taskbar = ({ openWindows, onFocusWindow }) => {
         fontSize: 13,
         minWidth: 60,
         textAlign: 'right',
+        color: '#222',
+        fontWeight: 'bold',
+        textShadow: '0 1px 0 #fff, 1px 0 0 #888',
+        boxShadow: '1px 1px 0 #888',
+      }}>{time}</div>
+    </div>
+  );
+};
+
+export default Taskbar;
