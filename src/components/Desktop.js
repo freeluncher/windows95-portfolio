@@ -1,48 +1,23 @@
-import React, { useState } from 'react';
-import DesktopIcon from '../components/DesktopIcon';
-import aboutIcon from '../assets/computer-4.png';
-import projectsIcon from '../assets/directory_closed-4.png';
-import contactIcon from '../assets/modem-5.png'; // Import icon for Contact
-import recycleBinIcon from '../assets/directory_closed-4.png'; // Tambahkan icon Recycle Bin di desktop
+import React, { useRef } from 'react';
+import DesktopIcon from './DesktopIcon';
+import Window from './Window';
 
-// Icon tambahan untuk semua halaman
-import heroIcon from '../assets/computer-4.png';
-import aboutMeIcon from '../assets/computer-4.png';
-import skillsIcon from '../assets/skill.png';
-import failuresIcon from '../assets/modem-5.png';
-import galleryIcon from '../assets/camera.png';
-import testimonialsIcon from '../assets/mydocs.png';
-import blogIcon from '../assets/modem-5.png';
-import dreamIcon from '../assets/computer-4.png';
-import notFoundIcon from '../assets/directory_closed-4.png';
+const Desktop = ({
+  icons,
+  windows,
+  onIconDoubleClick,
+  onWindowClose,
+  onWindowMinimize,
+  onWindowClick,
+  onDragToRecycleBin,
+  closedWindows,
+  recycleBinItems,
+  onRestoreWindow,
+  onEmptyRecycleBin,
+  wallpaper,
+}) => {
+  const recycleBinRef = useRef(null);
 
-const icons = [
-  { id: 1, label: 'Hero', icon: heroIcon, window: 'hero' },
-  { id: 2, label: 'About Me', icon: aboutMeIcon, window: 'aboutMe' },
-  { id: 3, label: 'Skills', icon: skillsIcon, window: 'skills' },
-  { id: 4, label: 'Projects', icon: projectsIcon, window: 'projects' },
-  { id: 5, label: 'Failures', icon: failuresIcon, window: 'failures' },
-  { id: 6, label: 'Gallery', icon: galleryIcon, window: 'gallery' },
-  { id: 7, label: 'Testimonials', icon: testimonialsIcon, window: 'testimonials' },
-  { id: 8, label: 'Blog', icon: blogIcon, window: 'blog' },
-  { id: 9, label: 'Dream', icon: dreamIcon, window: 'dream' },
-  { id: 10, label: 'Contact', icon: contactIcon, window: 'contact' }, // Add Contact icon
-  { id: 11, label: '404', icon: notFoundIcon, window: 'notfound' },
-  { id: 12, label: 'Recycle Bin', icon: recycleBinIcon, window: 'recycleBin' },
-];
-
-// Fungsi untuk menentukan posisi default icon (grid vertikal seperti Windows)
-const getDefaultPosition = (index) => {
-  const iconSize = 90; // tinggi icon + margin
-  const marginTop = 32;
-  const marginLeft = 24;
-  return {
-    x: marginLeft,
-    y: marginTop + index * iconSize,
-  };
-};
-
-const Desktop = ({ onOpenWindow, wallpaper }) => {
   let bgStyle = {};
   if (wallpaper) {
     if (wallpaper.type === 'color') {
@@ -53,16 +28,47 @@ const Desktop = ({ onOpenWindow, wallpaper }) => {
       bgStyle.backgroundPosition = 'center';
     }
   }
+
+  // Tentukan icon Recycle Bin berdasarkan isi
+  const recycleBinIcon = closedWindows && closedWindows.length > 0 ? require('../assets/recycle_bin_full.png') : require('../assets/recycle_bin_empty.png');
+  const iconsWithDynamicRecycleBin = icons
+    ? icons.map(icon => icon.window === 'recycleBin' ? { ...icon, icon: recycleBinIcon } : icon)
+    : [];
+
   return (
     <div className="desktop-area" style={{position: 'relative', width: '100vw', height: '100vh', ...bgStyle}}>
-      {icons.map((icon, idx) => (
+      {/* Desktop Icons */}
+      {iconsWithDynamicRecycleBin.map((icon, idx) => (
         <DesktopIcon
           key={icon.id}
           icon={icon.icon}
           label={icon.label}
-          onDoubleClick={() => onOpenWindow(icon.window)}
-          defaultPosition={getDefaultPosition(idx)}
+          onDoubleClick={() => onIconDoubleClick(icon.window)}
+          defaultPosition={{ x: 24, y: 32 + idx * 90 }}
         />
+      ))}
+
+      {/* Windows */}
+      {windows && windows.map(win => (
+        <Window
+          key={win.name}
+          title={win.title}
+          name={win.name}
+          zIndex={win.zIndex}
+          top={win.top}
+          left={win.left}
+          minHeight={win.minHeight}
+          width={win.width}
+          onClose={() => onWindowClose(win.name)}
+          onMinimize={() => onWindowMinimize(win.name)}
+          onClick={() => onWindowClick(win.name)}
+          onDragToRecycleBin={onDragToRecycleBin}
+          recycleBinRef={win.name === 'recycleBin' ? recycleBinRef : recycleBinRef}
+          // Attach the ref to the actual Recycle Bin window DOM node only
+          windowRef={win.name === 'recycleBin' ? recycleBinRef : undefined}
+        >
+          {win.content}
+        </Window>
       ))}
     </div>
   );
