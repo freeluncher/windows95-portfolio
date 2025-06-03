@@ -98,7 +98,13 @@ function RetroApp() {
     <div style={{width:'100vw',height:'100vh',overflow:'hidden'}}>
       <Desktop onOpenWindow={handleOpenWindow} />
       {windowList.map(w => renderWindow(w.name, w.title, w.Component))}
-      <Taskbar openWindows={openWindows.map(w => w.name)} minimized={minimized} onFocusWindow={handleFocusWindow} onRestoreWindow={handleRestoreWindow} />
+      <Taskbar 
+        openWindows={openWindows.map(w => w.name)} 
+        minimized={minimized} 
+        onFocusWindow={handleFocusWindow} 
+        onRestoreWindow={handleRestoreWindow}
+        onStartMenu={handleOpenWindow}
+      />
     </div>
   );
 }
