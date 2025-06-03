@@ -4,10 +4,29 @@ import aboutIcon from '../assets/computer-4.png';
 import projectsIcon from '../assets/directory_closed-4.png';
 import contactIcon from '../assets/modem-5.png';
 
+// Icon tambahan untuk semua halaman
+import heroIcon from '../assets/computer-4.png';
+import aboutMeIcon from '../assets/computer-4.png';
+import skillsIcon from '../assets/directory_closed-4.png';
+import failuresIcon from '../assets/modem-5.png';
+import galleryIcon from '../assets/computer-4.png';
+import testimonialsIcon from '../assets/directory_closed-4.png';
+import blogIcon from '../assets/modem-5.png';
+import dreamIcon from '../assets/computer-4.png';
+import notFoundIcon from '../assets/directory_closed-4.png';
+
 const icons = [
-  { id: 1, label: 'About', icon: aboutIcon, window: 'about' },
-  { id: 2, label: 'Projects', icon: projectsIcon, window: 'projects' },
-  { id: 3, label: 'Contact', icon: contactIcon, window: 'contact' },
+  { id: 1, label: 'Hero', icon: heroIcon, window: 'hero' },
+  { id: 2, label: 'About Me', icon: aboutMeIcon, window: 'aboutMe' },
+  { id: 3, label: 'Skills', icon: skillsIcon, window: 'skills' },
+  { id: 4, label: 'Projects', icon: projectsIcon, window: 'projects' },
+  { id: 5, label: 'Failures', icon: failuresIcon, window: 'failures' },
+  { id: 6, label: 'Gallery', icon: galleryIcon, window: 'gallery' },
+  { id: 7, label: 'Testimonials', icon: testimonialsIcon, window: 'testimonials' },
+  { id: 8, label: 'Blog', icon: blogIcon, window: 'blog' },
+  { id: 9, label: 'Dream', icon: dreamIcon, window: 'dream' },
+  { id: 10, label: 'Contact', icon: contactIcon, window: 'contact' },
+  { id: 11, label: '404', icon: notFoundIcon, window: 'notfound' },
 ];
 
 // Fungsi untuk menentukan posisi default icon (grid vertikal seperti Windows)
