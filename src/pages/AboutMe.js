@@ -2,30 +2,48 @@ import React, { useState } from 'react';
 import Failures from './Failures';
 import Dream from './Dream';
 
+// Gunakan asset yang sudah ada
+import folderIcon from '../assets/mydocs.png';
+import userPhoto from '../assets/camera.png'; // Ganti dengan foto user jika ada
+
 const AboutMe = () => {
-  const [tab, setTab] = useState('about');
+  const [tab, setTab] = useState('general');
   return (
-    <section className="about-section" style={{paddingTop: 0, marginTop: 0}}>
-      <div className="window-tabs" style={{marginTop: '-8px'}}>
-        <button className={tab==='about' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('about')}>About Me</button>
+    <section className="properties-dialog">
+      <div className="window-tabs properties-tabs">
+        <button className={tab==='general' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('general')}>General</button>
+        <button className={tab==='details' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('details')}>Details</button>
         <button className={tab==='failures' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('failures')}>Failures</button>
         <button className={tab==='dream' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('dream')}>Dream</button>
       </div>
-      <div>
-        {tab==='about' && (
-          <>
-            <h1>About Me</h1>
-            <p>Hi! Saya Gandhi, suka ngoding sambil dengerin musik 8-bit. Pernah bikin website dari warnet, dan suka koleksi mousepad retro.</p>
-            <ul>
-              <li>Fun Fact: Pernah ikut lomba mengetik cepat pakai keyboard jadul!</li>
-              <li>MBTI: INFP</li>
-              <li>Hobi: Pixel art, main game klasik, ngoprek hardware</li>
-            </ul>
-            <div style={{marginTop: 24}}>
-              <img src="/assets/directory_closed-4.png" alt="Infografik Kepribadian" style={{width: 100}} />
-              <p style={{fontSize: 12, color: '#888'}}>Infografik kepribadian (dummy)</p>
+      <div className="properties-content">
+        {tab==='general' && (
+          <div className="properties-general">
+            <div className="properties-icon-area">
+              <img src={folderIcon} alt="Folder Icon" className="properties-icon" />
+              <img src={userPhoto} alt="User" className="properties-photo" />
             </div>
-          </>
+            <div className="properties-info">
+              <div><span className="properties-label">Name:</span> Gandhi</div>
+              <div><span className="properties-label">Type:</span> Folder</div>
+              <div><span className="properties-label">Location:</span> C:\Users\Gandhi\Portfolio</div>
+              <div><span className="properties-label">Size:</span> 1.44 MB (floppy style!)</div>
+              <div><span className="properties-label">Created:</span> 2000-01-01</div>
+            </div>
+          </div>
+        )}
+        {tab==='details' && (
+          <div className="properties-details">
+            <div className="properties-bio">
+              <b>About Gandhi</b>
+              <p>Hi! Saya Gandhi, suka ngoding sambil dengerin musik 8-bit. Pernah bikin website dari warnet, dan suka koleksi mousepad retro.</p>
+              <ul>
+                <li>Fun Fact: Pernah ikut lomba mengetik cepat pakai keyboard jadul!</li>
+                <li>MBTI: INFP</li>
+                <li>Hobi: Pixel art, main game klasik, ngoprek hardware</li>
+              </ul>
+            </div>
+          </div>
         )}
         {tab==='failures' && <Failures />}
         {tab==='dream' && <Dream />}

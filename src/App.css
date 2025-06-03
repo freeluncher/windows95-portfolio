@@ -326,6 +326,46 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
   border-radius: 0 !important;
 }
 
+/* --- FIX: Remove border-radius from .window-tabs --- */
+.window-tabs {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-tab --- */
+.window-tab {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .btn --- */
+.btn {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-content --- */
+.window-content {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-title --- */
+.window-title {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .retro-window --- */
+.retro-window {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .desktop-icon --- */
+.desktop-icon {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-inner --- */
+.window-inner {
+  border-radius: 0 !important;
+}
+
 /* --- END FIXES --- */
 
 /* Desktop retro styles */
@@ -388,7 +428,8 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
   border-left-color: #fff;
   border-top-color: #fff;
   box-sizing: border-box;
-  box-shadow: none;
+  box-shadow: 2px 2px 0 #000, 1px 1px 0 #808080;
+  border-radius: 0 !important;
 }
 .window-title {
   font-family: 'MS Sans Serif', 'Tahoma', 'Geneva', sans-serif;
@@ -440,6 +481,10 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
   min-height: 60px;
   max-width: 100%;
   max-height: 100%;
+  flex: 1 1 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 .window-content,
 .window-content * {
@@ -619,4 +664,149 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
 }
 .window-tabs::after {
   background: #808080;
+}
+
+/* --- PROPERTIES DIALOG WIN95 STYLE --- */
+.properties-dialog {
+  background: #c0c0c0;
+  border: 2px solid #fff;
+  border-right-color: #808080;
+  border-bottom-color: #808080;
+  border-radius: 0 !important;
+  box-shadow: 2px 2px 0 #000, 1px 1px 0 #808080;
+  padding: 0;
+  margin: 0;
+  width: 420px;
+  min-height: 260px;
+  font-family: 'MS Sans Serif', 'Tahoma', 'Geneva', sans-serif;
+  font-size: 15px;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+.properties-tabs {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  border-bottom: 2px solid #808080;
+}
+.properties-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+  padding: 18px 18px 8px 18px;
+  background: #fff;
+  border: 2px solid #c0c0c0;
+  border-top: none;
+  border-radius: 0 !important;
+  overflow: auto;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  /* Kembalikan scrollbar retro dan border 3D tebal Win95 */
+  scrollbar-width: auto;
+}
+
+/* Scrollbar retro khusus .window-content dan .properties-content */
+.properties-content::-webkit-scrollbar, .window-content::-webkit-scrollbar {
+  width: 17px !important;
+  height: 17px !important;
+  background: #bdbdbd !important;
+  border-left: 2px solid #fff !important;
+  border-top: 2px solid #fff !important;
+  border-right: 2px solid #808080 !important;
+  border-bottom: 2px solid #808080 !important;
+  box-sizing: border-box !important;
+}
+.properties-content::-webkit-scrollbar-thumb, .window-content::-webkit-scrollbar-thumb {
+  background: #e4e4e4 !important;
+  border-top: 2px solid #fff !important;
+  border-left: 2px solid #fff !important;
+  border-bottom: 2px solid #808080 !important;
+  border-right: 2px solid #808080 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  background-clip: padding-box !important;
+  -webkit-appearance: none !important;
+  filter: none !important;
+  transition: none !important;
+}
+.properties-content::-webkit-scrollbar-track, .window-content::-webkit-scrollbar-track {
+  background: #c0c0c0 !important;
+  border-top: 2px solid #fff !important;
+  border-left: 2px solid #fff !important;
+  border-bottom: 2px solid #808080 !important;
+  border-right: 2px solid #808080 !important;
+  box-shadow: none !important;
+}
+.properties-content::-webkit-scrollbar-corner, .window-content::-webkit-scrollbar-corner {
+  background: #c0c0c0 !important;
+  border-top: 2px solid #fff !important;
+  border-left: 2px solid #fff !important;
+  border-bottom: 2px solid #808080 !important;
+  border-right: 2px solid #808080 !important;
+}
+/* Scrollbar arrows (pseudo) */
+.properties-content::-webkit-scrollbar-button:single-button, .window-content::-webkit-scrollbar-button:single-button {
+  display: block;
+  background: #c0c0c0 !important;
+  border: none !important;
+  height: 17px !important;
+  width: 17px !important;
+  padding: 0 !important;
+}
+.properties-content::-webkit-scrollbar-button:single-button:vertical:decrement, .window-content::-webkit-scrollbar-button:single-button:vertical:decrement {
+  border-top: 2px solid #fff !important;
+  border-left: 2px solid #fff !important;
+  border-bottom: 2px solid #808080 !important;
+  border-right: 2px solid #808080 !important;
+  background: #c0c0c0 url('data:image/svg+xml;utf8,<svg width="10" height="6" xmlns="http://www.w3.org/2000/svg"><polygon points="0,6 5,0 10,6" fill="black"/></svg>') no-repeat center center !important;
+}
+.properties-content::-webkit-scrollbar-button:single-button:vertical:increment, .window-content::-webkit-scrollbar-button:single-button:vertical:increment {
+  border-top: 2px solid #fff !important;
+  border-left: 2px solid #fff !important;
+  border-bottom: 2px solid #808080 !important;
+  border-right: 2px solid #808080 !important;
+  background: #c0c0c0 url('data:image/svg+xml;utf8,<svg width="10" height="6" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 5,6 10,0" fill="black"/></svg>') no-repeat center center !important;
+}
+.properties-content::-webkit-scrollbar-button:single-button:horizontal:decrement, .window-content::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  border-top: 2px solid #fff !important;
+  border-left: 2px solid #fff !important;
+  border-bottom: 2px solid #808080 !important;
+  border-right: 2px solid #808080 !important;
+  background: #c0c0c0 url('data:image/svg+xml;utf8,<svg width="6" height="10" xmlns="http://www.w3.org/2000/svg"><polygon points="6,0 0,5 6,10" fill="black"/></svg>') no-repeat center center !important;
+}
+.properties-content::-webkit-scrollbar-button:single-button:horizontal:increment, .window-content::-webkit-scrollbar-button:single-button:horizontal:increment {
+  border-top: 2px solid #fff !important;
+  border-left: 2px solid #fff !important;
+  border-bottom: 2px solid #808080 !important;
+  border-right: 2px solid #808080 !important;
+  background: #c0c0c0 url('data:image/svg+xml;utf8,<svg width="6" height="10" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 6,5 0,10" fill="black"/></svg>') no-repeat center center !important;
+}
+
+/* Firefox only: fallback retro scrollbar */
+@-moz-document url-prefix() {
+  .properties-content, .window-content {
+    scrollbar-color: #e0e0e0 #c0c0c0 !important;
+    scrollbar-width: thin !important;
+  }
+}
+/* Hanya window utama yang dapat border 3D, bukan icon desktop */
+/* (Dihapus, border 3D hanya di .window-outer, bukan di wrapper Draggable) */
+
+/* Hapus style global .react-draggable agar icon desktop tidak kena border 3D */
+.react-draggable,
+.react-draggable > div {
+  border: none;
+  box-shadow: none;
+  background: none;
 }

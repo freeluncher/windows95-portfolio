@@ -165,8 +165,9 @@ const Window = ({ title, children, onClose, onMinimize, onClick, zIndex, top = 1
       position={null} // Gunakan controlled mode agar drag selalu aktif
       disabled={closing}
       nodeRef={nodeRef}
+      className="window-draggable"
     >
-      <div ref={nodeRef} style={{
+      <div ref={nodeRef} className="window-outer" style={{
         position: 'absolute',
         zIndex: zIndex || 10,
         minWidth: WIN95_MIN_WIDTH,
@@ -174,27 +175,26 @@ const Window = ({ title, children, onClose, onMinimize, onClick, zIndex, top = 1
         pointerEvents: closing ? 'none' : 'auto',
         opacity: closing ? 0 : 1, // fade out saat closing
         transition: 'opacity 0.18s',
+        // Border 3D Win95 di level terluar
+        borderLeft: '2px solid #fff',
+        borderTop: '2px solid #fff',
+        borderRight: '2px solid #808080',
+        borderBottom: '2px solid #808080',
+        boxShadow: '2px 2px 0 #000, 1px 1px 0 #808080',
+        borderRadius: 0,
+        background: '#c0c0c0',
+        boxSizing: 'border-box',
       }}>
         <Resizable
           defaultSize={{ width: width || 440, height: minHeight || 320 }}
           minWidth={WIN95_MIN_WIDTH}
           minHeight={WIN95_MIN_HEIGHT}
           style={{
-            width: '100%',
-            height: '100%',
-            zIndex: zIndex || 10,
-            background: '#c0c0c0',
-            border: '2px solid #fff',
-            borderRight: '2px solid #808080',
-            borderBottom: '2px solid #808080',
-            borderLeft: '2px solid #fff',
-            borderTop: '2px solid #fff',
-            boxShadow: '2px 2px 0 #000, 1px 1px 0 #808080',
-            backgroundColor: '#c0c0c0',
-            padding: 0,
-            overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
+            width: '100%',
+            height: '100%',
+            // Pastikan Resizable wrapper selalu 100% agar konten ikut resize
           }}
           handleStyles={{
             bottomRight: {
@@ -203,13 +203,11 @@ const Window = ({ title, children, onClose, onMinimize, onClick, zIndex, top = 1
               background: '#c0c0c0',
               borderTop: '1px solid #808080',
               borderLeft: '1px solid #808080',
-              borderRight: '1px solid #fff',
-              borderBottom: '1px solid #fff',
-              boxSizing: 'border-box',
+              borderRight: 'none',
+              borderBottom: 'none',
               position: 'absolute',
               right: 0,
               bottom: 0,
-              cursor: 'nwse-resize',
               zIndex: 1000,
               pointerEvents: 'auto',
               display: 'flex',
@@ -240,6 +238,8 @@ const Window = ({ title, children, onClose, onMinimize, onClick, zIndex, top = 1
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
+              // Pastikan window dan konten ikut resize
+              flex: 1,
             }}
             onAnimationEnd={handleAnimationEnd}
           >
@@ -328,6 +328,9 @@ const Window = ({ title, children, onClose, onMinimize, onClick, zIndex, top = 1
                   boxSizing: 'border-box',
                   width: '100%',
                   height: '100%',
+                  // Pastikan konten ikut resize
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}
               >
                 {children}
