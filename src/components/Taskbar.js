@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const Taskbar = ({ openWindows, onFocusWindow }) => {
+const Taskbar = ({ openWindows, minimized = [], onFocusWindow, onRestoreWindow }) => {
   const [time, setTime] = useState(() => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
 
   useEffect(() => {
@@ -43,9 +43,9 @@ const Taskbar = ({ openWindows, onFocusWindow }) => {
         {openWindows.map(w => (
           <button
             key={w}
-            onClick={() => onFocusWindow(w)}
+            onClick={() => minimized.includes(w) ? onRestoreWindow(w) : onFocusWindow(w)}
             style={{
-              background: '#e0e0e0',
+              background: minimized.includes(w) ? '#b0b0b0' : '#e0e0e0',
               border: '2px outset #fff',
               borderRadius: 2,
               padding: '4px 12px',
@@ -55,7 +55,9 @@ const Taskbar = ({ openWindows, onFocusWindow }) => {
               cursor: 'pointer',
               color: '#222',
               boxShadow: '1px 1px 0 #888',
+              opacity: minimized.includes(w) ? 0.7 : 1,
             }}
+            title={minimized.includes(w) ? 'Restore' : 'Focus'}
           >
             {w.charAt(0).toUpperCase() + w.slice(1)}
           </button>
