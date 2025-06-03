@@ -76,12 +76,11 @@ const Desktop = ({
           left={win.left}
           minHeight={win.minHeight}
           width={win.width}
-          onClose={() => onWindowClose(win.name)}
-          onMinimize={() => onWindowMinimize(win.name)}
-          onClick={() => onWindowClick(win.name)}
+          onClose={onWindowClose ? () => { console.log('[Desktop] onWindowClose called', win.name); onWindowClose(win.name); } : undefined}
+          onMinimize={onWindowMinimize ? () => { console.log('[Desktop] onWindowMinimize called', win.name); onWindowMinimize(win.name); } : undefined}
+          onClick={onWindowClick ? () => { console.log('[Desktop] onWindowClick called', win.name); onWindowClick(win.name); } : undefined}
           onDragToRecycleBin={onDragToRecycleBin}
           recycleBinRef={win.name === 'recycleBin' ? recycleBinRef : recycleBinRef}
-          // Attach the ref to the actual Recycle Bin window DOM node only
           windowRef={win.name === 'recycleBin' ? recycleBinRef : undefined}
         >
           {win.content}

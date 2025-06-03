@@ -77,12 +77,17 @@ const wallpaperPresets = [
 ];
 
 function RetroApp() {
-  const [openWindows, setOpenWindows] = useState([]); // [{name, z}]
+  const [openWindows, setOpenWindows] = useState([]); // [{name, z, closing?}]
   const [minimized, setMinimized] = useState([]);
   const [zCounter, setZCounter] = useState(10);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [wallpaper, setWallpaper] = useState(wallpaperPresets[0]);
   const [closedWindows, setClosedWindows] = useState([]);
+
+  // --- LOG STATE ON EVERY RENDER ---
+  console.log('[RENDER] openWindows:', openWindows);
+  console.log('[RENDER] closedWindows:', closedWindows);
+  console.log('[RENDER] minimized:', minimized);
 
   // Helper: get zIndex for a window
   const getZIndex = (name) => {
@@ -91,60 +96,126 @@ function RetroApp() {
   };
 
   const handleOpenWindow = (windowName) => {
-    if (!openWindows.some(w => w.name === windowName)) {
-      setOpenWindows([...openWindows, { name: windowName, z: zCounter + 1 }]);
-      setZCounter(zCounter + 1);
+    window.DEBUG_OPEN = (window.DEBUG_OPEN || 0) + 1;
+    console.log('[DEBUG] handleOpenWindow called', windowName, 'call#', window.DEBUG_OPEN);
+    setClosedWindows(prevClosed => {
+      console.log('[DEBUG] setClosedWindows updater (open) prevClosed:', prevClosed);
+      if (prevClosed.some(w => w.name === windowName)) {
+        console.log('[DEBUG] Remove from closedWindows:', windowName);
+        return prevClosed.filter(w => w.name !== windowName);
+      }
+      return prevClosed;
+    });
+    setOpenWindows(prevOpen => {
+      console.log('[DEBUG] setOpenWindows updater (open) prevOpen:', prevOpen);
+      if (prevOpen.some(w => w.name === windowName) && !minimized.includes(windowName)) {
+        console.log('[DEBUG] Window already open and not minimized:', windowName);
+        handleFocusWindow(windowName);
+        playRetroSound('click', soundEnabled);
+        return prevOpen;
+      }
+      if (prevOpen.some(w => w.name === windowName) && minimized.includes(windowName)) {
+        console.log('[DEBUG] Window open but minimized, restoring:', windowName);
+        setMinimized(minimized.filter(w => w !== windowName));
+        handleFocusWindow(windowName);
+        playRetroSound('open', soundEnabled);
+        return prevOpen;
+      }
+      console.log('[DEBUG] openWindows before open:', JSON.stringify(prevOpen));
       playRetroSound('open', soundEnabled);
-    } else {
-      handleFocusWindow(windowName);
-      playRetroSound('click', soundEnabled);
-    }
-    setMinimized(minimized.filter(w => w !== windowName));
+      setZCounter(z => z + 1);
+      const newOpen = [...prevOpen, { name: windowName, z: zCounter + 1 }];
+      console.log('[DEBUG] openWindows after open:', newOpen);
+      return newOpen;
+    });
   };
 
   const handleCloseWindow = (windowName) => {
+    window.DEBUG_CLOSE = (window.DEBUG_CLOSE || 0) + 1;
+    console.log('[DEBUG] handleCloseWindow called', windowName, 'call#', window.DEBUG_CLOSE);
+    console.log('[DEBUG] openWindows before close:', JSON.stringify(openWindows));
+    console.log('[DEBUG] closedWindows before close:', JSON.stringify(closedWindows));
     const winMeta = windowList.find(w => w.name === windowName);
-    if (winMeta && windowName !== 'recycleBin') {
-      setClosedWindows(prev => ([...prev, { name: windowName, title: winMeta.title }]));
+    if (winMeta && windowName !== 'recycleBin' && !closedWindows.some(w => w.name === windowName)) {
+      setClosedWindows(prev => {
+        const newClosed = [...prev, { name: windowName, title: winMeta.title }];
+        console.log('[DEBUG] Add to closedWindows:', windowName, 'newClosed:', newClosed);
+        return newClosed;
+      });
     }
-    setOpenWindows(openWindows.filter(w => w.name !== windowName));
+    setOpenWindows(prev => {
+      const mapped = prev.map(w => w.name === windowName ? { ...w, closing: true } : w);
+      console.log('[DEBUG] setOpenWindows updater (close) mapped:', mapped);
+      return mapped;
+    });
     setMinimized(minimized.filter(w => w !== windowName));
     playRetroSound('close', soundEnabled);
+    setTimeout(() => {
+      setOpenWindows(prev => {
+        const filtered = prev.filter(w => w.name !== windowName);
+        console.log('[DEBUG] setOpenWindows updater (timeout) filtered:', filtered);
+        return filtered;
+      });
+      // Log state after close
+      setTimeout(() => {
+        console.log('[DEBUG] openWindows after close:', openWindows);
+        console.log('[DEBUG] closedWindows after close:', closedWindows);
+      }, 0);
+    }, 200);
   };
 
   const handleMinimizeWindow = (windowName) => {
+    console.log('[DEBUG] handleMinimizeWindow', windowName);
     if (!minimized.includes(windowName)) {
-      setMinimized([...minimized, windowName]);
+      setMinimized(prev => {
+        const newMin = [...prev, windowName];
+        console.log('[DEBUG] setMinimized updater (minimize) newMin:', newMin);
+        return newMin;
+      });
       playRetroSound('click', soundEnabled);
     }
   };
 
   const handleRestoreWindow = (windowName) => {
-    setMinimized(minimized.filter(w => w !== windowName));
+    console.log('[DEBUG] handleRestoreWindow', windowName);
+    setMinimized(prev => {
+      const newMin = prev.filter(w => w !== windowName);
+      console.log('[DEBUG] setMinimized updater (restore) newMin:', newMin);
+      return newMin;
+    });
     handleFocusWindow(windowName);
     playRetroSound('open', soundEnabled);
   };
 
   const handleFocusWindow = (windowName) => {
+    console.log('[DEBUG] handleFocusWindow', windowName);
     setOpenWindows(ws => {
       const maxZ = Math.max(...ws.map(w => w.z), zCounter);
-      return ws.map(w =>
-        w.name === windowName ? { ...w, z: maxZ + 1 } : w
-      );
+      const mapped = ws.map(w => w.name === windowName ? { ...w, z: maxZ + 1 } : w);
+      console.log('[DEBUG] setOpenWindows updater (focus) mapped:', mapped);
+      return mapped;
     });
     setZCounter(z => z + 1);
     playRetroSound('click', soundEnabled);
   };
 
   const handleRestoreClosedWindow = (windowName) => {
-    setClosedWindows(closedWindows.filter(w => w.name !== windowName));
+    console.log('[DEBUG] handleRestoreClosedWindow', windowName);
+    setClosedWindows(prev => {
+      const newClosed = prev.filter(w => w.name !== windowName);
+      console.log('[DEBUG] setClosedWindows updater (restoreClosed) newClosed:', newClosed);
+      return newClosed;
+    });
     handleOpenWindow(windowName);
   };
 
-  const handleEmptyRecycleBin = () => setClosedWindows([]);
+  const handleEmptyRecycleBin = () => {
+    console.log('[DEBUG] handleEmptyRecycleBin');
+    setClosedWindows([]);
+  };
 
-  // Handler drag to recycle bin
   const handleDragToRecycleBin = (windowName) => {
+    console.log('[DEBUG] handleDragToRecycleBin', windowName);
     if (windowName && windowName !== 'recycleBin') {
       handleCloseWindow(windowName);
     }
@@ -170,11 +241,17 @@ function RetroApp() {
       };
     });
 
+  // --- FIX: Update recycle bin icon based on closedWindows ---
+  const recycleBinIcon = closedWindows && closedWindows.length > 0 ? recycleBinIconFull : recycleBinIconEmpty;
+  const iconsWithDynamicRecycleBin = icons.map(icon =>
+    icon.window === 'recycleBin' ? { ...icon, icon: recycleBinIcon } : icon
+  );
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div style={{width:'100vw',height:'100vh',overflow:'hidden'}}>
         <Desktop
-          icons={icons}
+          icons={iconsWithDynamicRecycleBin}
           windows={desktopWindows}
           onIconDoubleClick={handleOpenWindow}
           onWindowClose={handleCloseWindow}

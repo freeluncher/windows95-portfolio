@@ -128,6 +128,206 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
   }
 }
 
+/* --- FIX: Windows95 window fade animation & pointerEvents --- */
+@keyframes window-anim-open {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes window-anim-close {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.98); }
+}
+.window-anim-open {
+  animation: window-anim-open 0.22s cubic-bezier(.4,0,.2,1) both;
+  will-change: opacity, transform;
+}
+.window-anim-close {
+  animation: window-anim-close 0.22s cubic-bezier(.4,0,.2,1) both;
+  pointer-events: none !important;
+  will-change: opacity, transform;
+}
+
+/* --- FIX: pointer-events for closing window: handled by .window-anim-close only --- */
+/* .retro-window[style*="opacity: 0"] { pointer-events: none !important; } */
+
+/* --- FIX: Remove border-radius and shadow from all retro elements --- */
+.retro-window, .window-inner, .window-content, .window-title, .window-tab, .window-tabs, .desktop-icon, .btn {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* --- FIX: Ensure .window-content always fits and scrolls retro --- */
+.window-content {
+  overflow: auto !important;
+  min-width: 0;
+  min-height: 60px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* --- FIX: Remove unwanted background on .desktop-icon hover --- */
+.desktop-icon:hover {
+  background: #e0e0e0 !important;
+  color: #000 !important;
+}
+
+/* --- FIX: Make .window-tab active border seamless --- */
+.window-tab.active, .window-tab[aria-selected="true"] {
+  border-bottom: 2px solid #fff !important;
+  background: #fff !important;
+  color: #000 !important;
+}
+
+/* --- FIX: Remove font-size override for .btn, .window-content, .window-title, .window-tab --- */
+.btn, .window-content, .window-title, .window-tab {
+  font-size: inherit !important;
+}
+
+/* --- FIX: Ensure .window-content uses Courier New for Notepad --- */
+.notepad-content {
+  font-family: 'Courier New', Courier, monospace !important;
+  font-size: 15px !important;
+}
+
+/* --- FIX: Remove margin from .window-content and .notepad-content --- */
+.window-content, .notepad-content {
+  margin: 0 !important;
+}
+
+/* --- FIX: Ensure .window-title is always at the top visually --- */
+.window-title {
+  z-index: 2;
+  position: relative;
+}
+
+/* --- FIX: Add focus style for accessibility --- */
+.window-title:focus, .window-tab:focus, .btn:focus {
+  outline: 2px dotted #000 !important;
+  outline-offset: 1px;
+}
+
+/* --- FIX: Remove border-radius from .btn --- */
+.btn {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-tabs --- */
+.window-tabs {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-tab --- */
+.window-tab {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-content --- */
+.window-content {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-title --- */
+.window-title {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .retro-window --- */
+.retro-window {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .desktop-icon --- */
+.desktop-icon {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-inner --- */
+.window-inner {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-tabs --- */
+.window-tabs {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-tab --- */
+.window-tab {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .btn --- */
+.btn {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-content --- */
+.window-content {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-title --- */
+.window-title {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .retro-window --- */
+.retro-window {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .desktop-icon --- */
+.desktop-icon {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-inner --- */
+.window-inner {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-tabs --- */
+.window-tabs {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-tab --- */
+.window-tab {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .btn --- */
+.btn {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-content --- */
+.window-content {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-title --- */
+.window-title {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .retro-window --- */
+.retro-window {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .desktop-icon --- */
+.desktop-icon {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-inner --- */
+.window-inner {
+  border-radius: 0 !important;
+}
+
+/* --- END FIXES --- */
+
 /* Desktop retro styles */
 .desktop-area {
   width: 100vw;
@@ -160,7 +360,8 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
   /* pastikan ukuran konsisten agar wrap stabil */
 }
 .desktop-icon:hover {
-  background: #c0c0c0;
+  background: #e0e0e0 !important;
+  color: #000 !important;
 }
 .retro-window {
   font-family: 'MS Sans Serif', 'Tahoma', 'Geneva', sans-serif;
@@ -234,69 +435,188 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
   padding: 1rem;
   font-size: 14px;
   box-shadow: none;
+  overflow: auto !important;
+  min-width: 0;
+  min-height: 60px;
+  max-width: 100%;
+  max-height: 100%;
+}
+.window-content,
+.window-content * {
+  border-radius: 0 !important;
+  -webkit-border-radius: 0 !important;
 }
 
+/* Windows 95 retro scrollbar for .window-content (Webkit/Chromium) */
+.window-content::-webkit-scrollbar {
+  width: 17px !important;
+  height: 17px !important;
+  background: #bdbdbd !important; /* Lebih gelap, kontras dengan thumb */
+  border-left: 2px solid #fff !important;
+  border-top: 2px solid #fff !important;
+  border-right: 2px solid #808080 !important;
+  border-bottom: 2px solid #808080 !important;
+  box-sizing: border-box !important;
+}
+.window-content::-webkit-scrollbar-thumb {
+  background: #e4e4e4 !important; /* Lebih terang, khas Win95 */
+  border-top: 2px solid #fff !important;
+  border-left: 2px solid #fff !important;
+  border-bottom: 2px solid #808080 !important;
+  border-right: 2px solid #808080 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  background-clip: padding-box !important;
+  -webkit-appearance: none !important;
+  filter: none !important;
+  transition: none !important;
+}
+.window-content::-webkit-scrollbar-track {
+  background: #c0c0c0 !important;
+  border-top: 2px solid #fff !important;
+  border-left: 2px solid #fff !important;
+  border-bottom: 2px solid #808080 !important;
+  border-right: 2px solid #808080 !important;
+  box-shadow: none !important;
+}
+.window-content::-webkit-scrollbar-corner {
+  background: #c0c0c0 !important;
+  border-top: 2px solid #fff !important;
+  border-left: 2px solid #fff !important;
+  border-bottom: 2px solid #808080 !important;
+  border-right: 2px solid #808080 !important;
+}
+/* Scrollbar arrows (simulate with pseudo) */
+.window-content::-webkit-scrollbar-button:single-button {
+  display: block;
+  background: #c0c0c0 !important;
+  border: none !important;
+  height: 17px !important;
+  width: 17px !important;
+  padding: 0 !important;
+}
+.window-content::-webkit-scrollbar-button:single-button:vertical:decrement {
+  border-top: 2px solid #fff !important;
+  border-left: 2px solid #fff !important;
+  border-bottom: 2px solid #808080 !important;
+  border-right: 2px solid #808080 !important;
+  background: #c0c0c0 url('data:image/svg+xml;utf8,<svg width="10" height="6" xmlns="http://www.w3.org/2000/svg"><polygon points="0,6 5,0 10,6" fill="black"/></svg>') no-repeat center center !important;
+}
+.window-content::-webkit-scrollbar-button:single-button:vertical:increment {
+  border-top: 2px solid #fff !important;
+  border-left: 2px solid #fff !important;
+  border-bottom: 2px solid #808080 !important;
+  border-right: 2px solid #808080 !important;
+  background: #c0c0c0 url('data:image/svg+xml;utf8,<svg width="10" height="6" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 5,6 10,0" fill="black"/></svg>') no-repeat center center !important;
+}
+.window-content::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  border-top: 2px solid #fff !important;
+  border-left: 2px solid #fff !important;
+  border-bottom: 2px solid #808080 !important;
+  border-right: 2px solid #808080 !important;
+  background: #c0c0c0 url('data:image/svg+xml;utf8,<svg width="6" height="10" xmlns="http://www.w3.org/2000/svg"><polygon points="6,0 0,5 6,10" fill="black"/></svg>') no-repeat center center !important;
+}
+.window-content::-webkit-scrollbar-button:single-button:horizontal:increment {
+  border-top: 2px solid #fff !important;
+  border-left: 2px solid #fff !important;
+  border-bottom: 2px solid #808080 !important;
+  border-right: 2px solid #808080 !important;
+  background: #c0c0c0 url('data:image/svg+xml;utf8,<svg width="6" height="10" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 6,5 0,10" fill="black"/></svg>') no-repeat center center !important;
+}
+
+/* Firefox only: fallback retro scrollbar */
+@-moz-document url-prefix() {
+  .window-content {
+    scrollbar-color: #e0e0e0 #c0c0c0 !important;
+    scrollbar-width: thin !important;
+  }
+}
+
+/* --- Resize handle: move above scrollbar, not overlap arrow --- */
+.re-resizable-handle.re-resizable-handle-br {
+  z-index: 10 !important;
+  position: absolute !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+  pointer-events: auto !important;
+  background: none !important;
+  margin-right: 2px !important;
+  margin-bottom: 2px !important;
+}
+
+/* Windows 95 style tabs for window system */
 .window-tabs {
   display: flex;
-  gap: 0;
-  margin-bottom: 8px;
-  border-bottom: 2px solid #808080;
-  background: #c0c0c0;
+  align-items: flex-end;
   height: 28px;
+  margin: 0;
+  padding: 0 0 0 4px;
+  background: transparent;
+  border-bottom: 2px solid #808080;
+  /* border di bawah tab bar agar tab aktif tampak menyatu */
 }
 .window-tab {
   font-family: 'MS Sans Serif', 'Tahoma', 'Geneva', sans-serif;
+  font-size: 15px;
+  color: #000;
   background: #c0c0c0;
-  color: #222;
-  border: 2px solid #fff;
-  border-bottom: none;
-  border-right-color: #808080;
-  border-left-color: #fff;
-  border-top-color: #fff;
-  border-radius: 4px 4px 0 0;
+  border-left: 2px solid #fff;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  box-sizing: border-box;
   padding: 2px 18px 2px 18px;
-  font-size: 14px;
-  margin-right: 2px;
-  cursor: pointer;
-  box-shadow: 1px 1px 0 #808080;
+  margin-right: -2px;
+  margin-bottom: 0;
+  min-width: 64px;
+  height: 26px;
   position: relative;
-  top: 2px;
+  z-index: 1;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  cursor: pointer;
   outline: none;
-  transition: background 0.1s;
+  transition: none;
 }
-.window-tab.active {
+.window-tab.active, .window-tab[aria-selected="true"] {
   background: #fff;
   color: #000;
+  border-left: 2px solid #fff;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #808080;
   border-bottom: 2px solid #fff;
   z-index: 2;
+  height: 30px;
+  margin-bottom: -4px;
+  /* tab aktif naik ke atas, border bawah putih menyatu dengan konten */
 }
-.window-tab:not(.active):hover {
-  background: #e0e0e0;
+.window-tab:not(.active):not([aria-selected="true"]) {
+  background: #c0c0c0;
+  color: #222;
+  border-bottom: 2px solid #808080;
+  z-index: 1;
+  height: 26px;
+  margin-bottom: 0;
 }
-
-.window-anim-open {
-  animation: windowOpenAnim 220ms cubic-bezier(.32,1.56,.64,1) both;
+.window-tab:focus {
+  outline: 1px dotted #000;
 }
-.window-anim-close {
-  animation: windowCloseAnim 220ms cubic-bezier(.32,1.56,.64,1) both;
+/* Hilangkan gap antar tab */
+.window-tab + .window-tab {
+  margin-left: 0;
 }
-@keyframes windowOpenAnim {
-  from {
-    opacity: 0;
-    transform: scale(0.85);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+/* Tab bar sudut kiri/kanan 3D */
+.window-tabs::before, .window-tabs::after {
+  content: '';
+  display: block;
+  width: 2px;
+  height: 100%;
+  background: #fff;
 }
-@keyframes windowCloseAnim {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.85);
-  }
+.window-tabs::after {
+  background: #808080;
 }
