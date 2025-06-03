@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import DesktopIcon from '../components/DesktopIcon';
 import aboutIcon from '../assets/computer-4.png';
 import projectsIcon from '../assets/directory_closed-4.png';
+import contactIcon from '../assets/contact.png'; // Import icon for Contact
 
 // Icon tambahan untuk semua halaman
 import heroIcon from '../assets/computer-4.png';
@@ -24,7 +25,8 @@ const icons = [
   { id: 7, label: 'Testimonials', icon: testimonialsIcon, window: 'testimonials' },
   { id: 8, label: 'Blog', icon: blogIcon, window: 'blog' },
   { id: 9, label: 'Dream', icon: dreamIcon, window: 'dream' },
-  { id: 10, label: '404', icon: notFoundIcon, window: 'notfound' },
+  { id: 10, label: 'Contact', icon: contactIcon, window: 'contact' }, // Add Contact icon
+  { id: 11, label: '404', icon: notFoundIcon, window: 'notfound' },
 ];
 
 // Fungsi untuk menentukan posisi default icon (grid vertikal seperti Windows)
