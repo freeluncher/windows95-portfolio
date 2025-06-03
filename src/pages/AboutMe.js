@@ -5,11 +5,11 @@ import Dream from './Dream';
 const AboutMe = () => {
   const [tab, setTab] = useState('about');
   return (
-    <section className="about-section">
-      <div style={{display:'flex',gap:8,marginBottom:16}}>
-        <button onClick={()=>setTab('about')} style={{background:tab==='about'?'#000080':'#c0c0c0',color:tab==='about'?'#fff':'#222',border:'1px solid #000',padding:'4px 16px',cursor:'pointer'}}>About Me</button>
-        <button onClick={()=>setTab('failures')} style={{background:tab==='failures'?'#000080':'#c0c0c0',color:tab==='failures'?'#fff':'#222',border:'1px solid #000',padding:'4px 16px',cursor:'pointer'}}>Failures</button>
-        <button onClick={()=>setTab('dream')} style={{background:tab==='dream'?'#000080':'#c0c0c0',color:tab==='dream'?'#fff':'#222',border:'1px solid #000',padding:'4px 16px',cursor:'pointer'}}>Dream</button>
+    <section className="about-section" style={{paddingTop: 0, marginTop: 0}}>
+      <div className="window-tabs" style={{marginTop: '-8px'}}>
+        <button className={tab==='about' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('about')}>About Me</button>
+        <button className={tab==='failures' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('failures')}>Failures</button>
+        <button className={tab==='dream' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('dream')}>Dream</button>
       </div>
       <div>
         {tab==='about' && (

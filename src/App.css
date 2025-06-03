@@ -163,37 +163,117 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
   background: #c0c0c0;
 }
 .retro-window {
-  font-family: 'MS Sans Serif', 'Press Start 2P', monospace;
-  border: 2px solid #fff;
-  box-shadow: 4px 4px 0 #000;
+  font-family: 'MS Sans Serif', 'Tahoma', 'Geneva', sans-serif;
   background: #c0c0c0;
+  border: 2px solid #fff;
+  border-right-color: #808080;
+  border-bottom-color: #808080;
+  border-left-color: #fff;
+  border-top-color: #fff;
+  box-shadow: 2px 2px 0 #000, 1px 1px 0 #808080;
+  position: absolute;
   min-width: 320px;
-  min-height: 200px;
-  z-index: 10;
-}
-.window-title {
-  background: #000080;
-  color: #fff;
-  padding: 4px 8px;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: move;
-  font-size: 20px;
-  font-family: 'VT323', 'MS Sans Serif', 'Tahoma', 'Geneva', sans-serif !important;
-}
-.window-content {
-  padding: 1rem;
-  background: #fff;
-  color: #222;
   min-height: 120px;
+  padding: 0;
+  overflow: hidden;
 }
-
 .window-inner {
   width: 100%;
   height: 100%;
+  background: #c0c0c0;
+  border: 2px solid #fff;
+  border-right-color: #808080;
+  border-bottom-color: #808080;
+  border-left-color: #fff;
+  border-top-color: #fff;
+  box-sizing: border-box;
+  box-shadow: none;
 }
+.window-title {
+  font-family: 'MS Sans Serif', 'Tahoma', 'Geneva', sans-serif;
+  background: linear-gradient(to bottom, #000080 80%, #1084d0 100%);
+  color: #fff;
+  padding: 2px 8px 2px 8px;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #000080;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  height: 28px;
+  box-shadow: 0 1px 0 #fff inset;
+}
+.window-title button {
+  font-family: inherit;
+  background: #c0c0c0;
+  border: 1px solid #808080;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+  border-left-color: #808080;
+  border-top-color: #808080;
+  width: 20px;
+  height: 20px;
+  margin-left: 2px;
+  color: #000;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 1px 1px 0 #fff inset;
+  padding: 0;
+}
+.window-title button:active {
+  background: #808080;
+}
+.window-content {
+  font-family: 'MS Sans Serif', 'Tahoma', 'Geneva', sans-serif;
+  background: #fff;
+  color: #222;
+  min-height: 120px;
+  padding: 1rem;
+  font-size: 14px;
+  box-shadow: none;
+}
+
+.window-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 8px;
+  border-bottom: 2px solid #808080;
+  background: #c0c0c0;
+  height: 28px;
+}
+.window-tab {
+  font-family: 'MS Sans Serif', 'Tahoma', 'Geneva', sans-serif;
+  background: #c0c0c0;
+  color: #222;
+  border: 2px solid #fff;
+  border-bottom: none;
+  border-right-color: #808080;
+  border-left-color: #fff;
+  border-top-color: #fff;
+  border-radius: 4px 4px 0 0;
+  padding: 2px 18px 2px 18px;
+  font-size: 14px;
+  margin-right: 2px;
+  cursor: pointer;
+  box-shadow: 1px 1px 0 #808080;
+  position: relative;
+  top: 2px;
+  outline: none;
+  transition: background 0.1s;
+}
+.window-tab.active {
+  background: #fff;
+  color: #000;
+  border-bottom: 2px solid #fff;
+  z-index: 2;
+}
+.window-tab:not(.active):hover {
+  background: #e0e0e0;
+}
+
 .window-anim-open {
   animation: windowOpenAnim 220ms cubic-bezier(.32,1.56,.64,1) both;
 }

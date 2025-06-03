@@ -133,44 +133,93 @@ const Window = ({ title, children, onClose, onMinimize, onClick, zIndex, top = 1
     >
       <div
         ref={combinedRef}
-        className="retro-window"
+        className="retro-window notepad-window"
         style={{
           minWidth: width || 320,
           minHeight: minHeight || undefined,
           zIndex: zIndex || 10,
           background: '#c0c0c0',
-          border: isOver && canDrop ? '2px solid #008000' : '2px solid #fff',
-          boxShadow: '4px 4px 0 #000',
+          border: '2px solid #fff',
+          borderRight: '2px solid #808080',
+          borderBottom: '2px solid #808080',
+          borderLeft: '2px solid #fff',
+          borderTop: '2px solid #fff',
+          boxShadow: '2px 2px 0 #000, 1px 1px 0 #808080',
           backgroundColor: '#c0c0c0',
           position: 'absolute',
+          padding: 0,
+          overflow: 'hidden',
         }}
         onAnimationEnd={handleAnimationEnd}
       >
-        <div className={`window-inner ${animClass}`} style={{ width: '100%', height: '100%' }}>
+        <div className={`window-inner ${animClass}`} style={{
+          width: '100%',
+          height: '100%',
+          background: '#fff',
+          borderLeft: '1px solid #808080',
+          borderRight: '1px solid #fff',
+          borderBottom: '1px solid #fff',
+          borderTop: 'none',
+          boxShadow: 'none',
+          padding: 0,
+        }}>
           <div
             className="window-title"
             style={{
-              background:'#000080',
-              color:'#fff',
-              padding:'4px 8px',
-              cursor:'move',
-              display:'flex',
-              justifyContent:'space-between',
-              alignItems:'center',
-              userSelect:'none',
-              backgroundColor:'#000080',
+              fontFamily: 'MS Sans Serif, Tahoma, Geneva, sans-serif',
+              background: '#000080',
+              color: '#fff',
+              padding: '2px 8px',
+              cursor: 'move',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              userSelect: 'none',
+              height: 28,
+              borderBottom: '2px solid #808080',
+              boxShadow: '0 1px 0 #fff inset',
             }}
             onMouseDown={e => {
               if (e.button === 0 && e.target === e.currentTarget && onClick) onClick();
             }}
           >
-            <span>{title}</span>
+            <span style={{fontWeight:'normal', fontSize:15, letterSpacing:0.5}}>{title}</span>
             <div style={{display:'flex',gap:4}}>
-              <button onClick={onMinimize} style={{background:'#c0c0c0',border:'1px solid #000',width:20,height:20,cursor:'pointer',fontWeight:'bold'}} title="Minimize">_</button>
-              <button onClick={handleClose} style={{background:'#c0c0c0',border:'1px solid #000',width:20,height:20,cursor:'pointer'}}>X</button>
+              <button onClick={onMinimize} style={{background:'#c0c0c0',border:'1px solid #808080',borderRightColor:'#fff',borderBottomColor:'#fff',borderLeftColor:'#808080',borderTopColor:'#808080',width:20,height:20,cursor:'pointer',fontWeight:'bold',fontSize:13,boxShadow:'1px 1px 0 #fff inset',padding:0}} title="Minimize">_</button>
+              <button onClick={handleClose} style={{background:'#c0c0c0',border:'1px solid #808080',borderRightColor:'#fff',borderBottomColor:'#fff',borderLeftColor:'#808080',borderTopColor:'#808080',width:20,height:20,cursor:'pointer',fontWeight:'bold',fontSize:13,boxShadow:'1px 1px 0 #fff inset',padding:0}}>X</button>
             </div>
           </div>
-          <div className="window-content" style={{padding:'1rem'}}>
+          {/* Notepad menu bar */}
+          <div className="notepad-menubar" style={{
+            display: 'flex',
+            alignItems: 'center',
+            background: '#e0e0e0',
+            borderBottom: '2px solid #808080',
+            borderTop: '1px solid #fff',
+            height: 22,
+            paddingLeft: 6,
+            fontFamily: 'MS Sans Serif, Tahoma, Geneva, sans-serif',
+            fontSize: 14,
+            color: '#222',
+            userSelect: 'none',
+          }}>
+            <span style={{marginRight: 18, cursor:'default'}}>File</span>
+            <span style={{marginRight: 18, cursor:'default'}}>Edit</span>
+            <span style={{marginRight: 18, cursor:'default'}}>Search</span>
+            <span style={{marginRight: 18, cursor:'default'}}>Help</span>
+          </div>
+          {/* Notepad content area */}
+          <div className="window-content notepad-content" style={{
+            padding: '8px 4px',
+            background: '#fff',
+            color: '#222',
+            fontFamily: 'Courier New, monospace',
+            fontSize: 15,
+            minHeight: 'calc(100% - 50px)',
+            whiteSpace: 'pre-wrap',
+            overflow: 'auto',
+            border: 'none',
+          }}>
             {children}
           </div>
         </div>
