@@ -114,6 +114,16 @@ const Window = ({ title, children, onClose, onMinimize, onClick, zIndex, top = 1
   // Ukuran minimum: titlebar (28px) + menubar (22px) + area konten minimal (misal 60px)
   const WIN95_MIN_WIDTH = 320;
   const WIN95_MIN_HEIGHT = 28 + 22 + 60;
+  const defaultWidth = width || 440;
+  const defaultHeight = minHeight || 320;
+  const [viewport, setViewport] = React.useState({ w: window.innerWidth, h: window.innerHeight });
+  React.useEffect(() => {
+    const handleResize = () => setViewport({ w: window.innerWidth, h: window.innerHeight });
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  const centerX = Math.max(0, Math.round((viewport.w - defaultWidth) / 2));
+  const centerY = Math.max(0, Math.round((viewport.h - defaultHeight) / 2));
 
   // DEBUG: Log computed style of scrollbar thumb after mount
   React.useEffect(() => {
@@ -162,7 +172,7 @@ const Window = ({ title, children, onClose, onMinimize, onClick, zIndex, top = 1
       onStart={handleStart}
       onDrag={handleDrag}
       onStop={handleStop}
-      position={null} // Gunakan controlled mode agar drag selalu aktif
+      defaultPosition={{ x: centerX, y: centerY }}
       disabled={closing}
       nodeRef={nodeRef}
       className="window-draggable"
