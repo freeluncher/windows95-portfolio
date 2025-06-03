@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import DesktopIcon from '../components/DesktopIcon';
 import aboutIcon from '../assets/computer-4.png';
 import projectsIcon from '../assets/directory_closed-4.png';
-import contactIcon from '../assets/contact.png'; // Import icon for Contact
+import contactIcon from '../assets/modem-5.png'; // Import icon for Contact
 
 // Icon tambahan untuk semua halaman
 import heroIcon from '../assets/computer-4.png';
