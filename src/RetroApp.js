@@ -4,18 +4,26 @@ import Window from './components/Window';
 import About from './pages/About';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
+import Taskbar from './components/Taskbar';
 
 function RetroApp() {
   const [openWindows, setOpenWindows] = useState([]);
+  const [focusedWindow, setFocusedWindow] = useState(null);
 
   const handleOpenWindow = (windowName) => {
     if (!openWindows.includes(windowName)) {
       setOpenWindows([...openWindows, windowName]);
     }
+    setFocusedWindow(windowName);
   };
 
   const handleCloseWindow = (windowName) => {
     setOpenWindows(openWindows.filter(w => w !== windowName));
+    if (focusedWindow === windowName) setFocusedWindow(null);
+  };
+
+  const handleFocusWindow = (windowName) => {
+    setFocusedWindow(windowName);
   };
 
   return (
@@ -36,6 +44,7 @@ function RetroApp() {
           <Contact />
         </Window>
       )}
+      <Taskbar openWindows={openWindows} onFocusWindow={handleFocusWindow} />
     </div>
   );
 }
