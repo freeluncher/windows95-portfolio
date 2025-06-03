@@ -13,6 +13,9 @@ import Dream from './pages/Dream';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 import Taskbar from './components/Taskbar';
+import clickSound from './assets/sound/click.wav';
+import openSound from './assets/sound/open.wav';
+import closeSound from './assets/sound/close.wav';
 
 const windowList = [
   { name: 'hero', title: 'Hero', Component: Hero },
@@ -28,10 +31,21 @@ const windowList = [
   { name: 'notfound', title: '404', Component: NotFound },
 ];
 
+function playRetroSound(type, enabled) {
+  if (!enabled) return;
+  let src = clickSound;
+  if (type === 'open') src = openSound;
+  if (type === 'close') src = closeSound;
+  const audio = new window.Audio(src);
+  audio.volume = 0.5;
+  audio.play();
+}
+
 function RetroApp() {
   const [openWindows, setOpenWindows] = useState([]); // [{name, z}]
   const [minimized, setMinimized] = useState([]);
   const [zCounter, setZCounter] = useState(10);
+  const [soundEnabled, setSoundEnabled] = useState(true);
 
   // Helper: get zIndex for a window
   const getZIndex = (name) => {
@@ -43,8 +57,10 @@ function RetroApp() {
     if (!openWindows.some(w => w.name === windowName)) {
       setOpenWindows([...openWindows, { name: windowName, z: zCounter + 1 }]);
       setZCounter(zCounter + 1);
+      playRetroSound('open', soundEnabled);
     } else {
       handleFocusWindow(windowName);
+      playRetroSound('click', soundEnabled);
     }
     setMinimized(minimized.filter(w => w !== windowName));
   };
@@ -52,17 +68,20 @@ function RetroApp() {
   const handleCloseWindow = (windowName) => {
     setOpenWindows(openWindows.filter(w => w.name !== windowName));
     setMinimized(minimized.filter(w => w !== windowName));
+    playRetroSound('close', soundEnabled);
   };
 
   const handleMinimizeWindow = (windowName) => {
     if (!minimized.includes(windowName)) {
       setMinimized([...minimized, windowName]);
+      playRetroSound('click', soundEnabled);
     }
   };
 
   const handleRestoreWindow = (windowName) => {
     setMinimized(minimized.filter(w => w !== windowName));
     handleFocusWindow(windowName);
+    playRetroSound('open', soundEnabled);
   };
 
   const handleFocusWindow = (windowName) => {
@@ -73,6 +92,7 @@ function RetroApp() {
       );
     });
     setZCounter(z => z + 1);
+    playRetroSound('click', soundEnabled);
   };
 
   const renderWindow = (name, title, Component) => {
@@ -104,6 +124,8 @@ function RetroApp() {
         onFocusWindow={handleFocusWindow} 
         onRestoreWindow={handleRestoreWindow}
         onStartMenu={handleOpenWindow}
+        soundEnabled={soundEnabled}
+        onToggleSound={() => setSoundEnabled(v => !v)}
       />
     </div>
   );

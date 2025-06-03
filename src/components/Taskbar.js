@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import StartMenu from './StartMenu';
 
-const Taskbar = ({ openWindows, minimized = [], onFocusWindow, onRestoreWindow, onStartMenu }) => {
+const Taskbar = ({ openWindows, minimized = [], onFocusWindow, onRestoreWindow, onStartMenu, soundEnabled, onToggleSound }) => {
   const [time, setTime] = useState(() => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
   const [startMenuOpen, setStartMenuOpen] = useState(false);
 
@@ -20,7 +20,7 @@ const Taskbar = ({ openWindows, minimized = [], onFocusWindow, onRestoreWindow, 
 
   return (
     <>
-      <StartMenu visible={startMenuOpen} onSelect={handleMenuSelect} onClose={() => setStartMenuOpen(false)} />
+      <StartMenu visible={startMenuOpen} onSelect={handleMenuSelect} onClose={() => setStartMenuOpen(false)} soundEnabled={soundEnabled} onToggleSound={onToggleSound} />
       <div style={{
         position: 'fixed',
         left: 0,

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SoundMenu from './SoundMenu';
 
 const menuItems = [
   { label: 'Hero', window: 'hero' },
@@ -13,7 +14,7 @@ const menuItems = [
   { label: 'Contact', window: 'contact' },
 ];
 
-const StartMenu = ({ visible, onSelect, onClose }) => {
+const StartMenu = ({ visible, onSelect, onClose, soundEnabled, onToggleSound }) => {
   if (!visible) return null;
   return (
     <div style={{
@@ -48,6 +49,7 @@ const StartMenu = ({ visible, onSelect, onClose }) => {
           {item.label}
         </div>
       ))}
+      <SoundMenu enabled={soundEnabled} onToggle={onToggleSound} />
     </div>
   );
 };
