@@ -136,6 +136,16 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
   position: relative;
   overflow: hidden;
 }
+.desktop-icons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  height: 100vh;
+  max-height: 100vh;
+  padding: 12px 0 0 12px;
+  /* gap antar icon */
+}
 .desktop-icon {
   position: absolute;
   user-select: none;
@@ -144,6 +154,10 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
   background: rgba(255,255,255,0.05);
   box-shadow: 2px 2px 0 #0008;
   transition: background 0.2s;
+  margin-bottom: 12px;
+  width: 72px;
+  height: 80px;
+  /* pastikan ukuran konsisten agar wrap stabil */
 }
 .desktop-icon:hover {
   background: #c0c0c0;

@@ -14,10 +14,11 @@ const DesktopIcon = ({ icon, label, onDoubleClick, defaultPosition }) => {
           textAlign: 'center',
           cursor: 'pointer',
           userSelect: 'none',
-          background: 'transparent', // transparan
-          boxShadow: 'none', // hilangkan shadow
+          background: 'transparent',
+          boxShadow: 'none',
           borderRadius: 4,
           padding: '8px 4px 4px 4px',
+          position: 'absolute',
         }}
         tabIndex={0}
         draggable={false}

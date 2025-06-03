@@ -35,6 +35,23 @@ const Desktop = ({
     ? icons.map(icon => icon.window === 'recycleBin' ? { ...icon, icon: recycleBinIcon } : icon)
     : [];
 
+  // Hitung posisi default icon agar wrap ke kolom baru jika melebihi tinggi desktop
+  const iconHeight = 90; // tinggi + margin
+  const iconWidth = 80; // lebar icon
+  const iconGap = 8;
+  let positions = [];
+  let x = 24;
+  let y = 32;
+  const maxHeight = window.innerHeight || 800;
+  iconsWithDynamicRecycleBin.forEach((icon, idx) => {
+    if (y + iconHeight > maxHeight - 32) {
+      y = 32;
+      x += iconWidth + iconGap;
+    }
+    positions.push({ x, y });
+    y += iconHeight + iconGap;
+  });
+
   return (
     <div className="desktop-area" style={{position: 'relative', width: '100vw', height: '100vh', ...bgStyle}}>
       {/* Desktop Icons */}
@@ -44,7 +61,7 @@ const Desktop = ({
           icon={icon.icon}
           label={icon.label}
           onDoubleClick={() => onIconDoubleClick(icon.window)}
-          defaultPosition={{ x: 24, y: 32 + idx * 90 }}
+          defaultPosition={positions[idx]}
         />
       ))}
 
