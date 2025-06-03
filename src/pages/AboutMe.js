@@ -11,10 +11,10 @@ const AboutMe = () => {
   return (
     <section className="properties-dialog">
       <div className="window-tabs properties-tabs">
-        <button className={tab==='general' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('general')}>General</button>
-        <button className={tab==='details' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('details')}>Details</button>
-        <button className={tab==='failures' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('failures')}>Failures</button>
-        <button className={tab==='dream' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('dream')}>Dream</button>
+        <button className={tab==='general' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('general')}><span>General</span></button>
+        <button className={tab==='details' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('details')}><span>Details</span></button>
+        <button className={tab==='failures' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('failures')}><span>Failures</span></button>
+        <button className={tab==='dream' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('dream')}><span>Dream</span></button>
       </div>
       <div className="properties-content">
         {tab==='general' && (

@@ -174,8 +174,24 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
 /* --- FIX: Make .window-tab active border seamless --- */
 .window-tab.active, .window-tab[aria-selected="true"] {
   border-bottom: 2px solid #fff !important;
-  background: #fff !important;
+  background: #c0c0c0 !important; /* Tetap warna abu-abu Win95, tidak berubah putih saat aktif */
   color: #000 !important;
+  position: relative;
+}
+.window-tab.active > span, .window-tab[aria-selected="true"] > span {
+  outline: 2px dotted #000 !important;
+  outline-offset: 2px !important;
+  border-radius: 0 !important;
+  z-index: 10;
+}
+.window-tab.active:focus, .window-tab[aria-selected="true"]:focus {
+  outline: none !important;
+}
+.window-tab.active:focus-visible, .window-tab[aria-selected="true"]:focus-visible {
+  outline: 2px dotted #000 !important;
+  outline-offset: -2px !important; /* Lebih dekat ke border, tetap terlihat */
+  border-radius: 0 !important;
+  z-index: 10;
 }
 
 /* --- FIX: Remove font-size override for .btn, .window-content, .window-title, .window-tab --- */
@@ -218,6 +234,126 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
 
 /* --- FIX: Remove border-radius from .window-tab --- */
 .window-tab {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-content --- */
+.window-content {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-title --- */
+.window-title {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .retro-window --- */
+.retro-window {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .desktop-icon --- */
+.desktop-icon {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-inner --- */
+.window-inner {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-tabs --- */
+.window-tabs {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-tab --- */
+.window-tab {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .btn --- */
+.btn {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-content --- */
+.window-content {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-title --- */
+.window-title {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .retro-window --- */
+.retro-window {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .desktop-icon --- */
+.desktop-icon {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-inner --- */
+.window-inner {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-tabs --- */
+.window-tabs {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-tab --- */
+.window-tab {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .btn --- */
+.btn {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-content --- */
+.window-content {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-title --- */
+.window-title {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .retro-window --- */
+.retro-window {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .desktop-icon --- */
+.desktop-icon {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-inner --- */
+.window-inner {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-tabs --- */
+.window-tabs {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .window-tab --- */
+.window-tab {
+  border-radius: 0 !important;
+}
+
+/* --- FIX: Remove border-radius from .btn --- */
+.btn {
   border-radius: 0 !important;
 }
 
@@ -470,7 +606,7 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
 }
 .window-content {
   font-family: 'MS Sans Serif', 'Tahoma', 'Geneva', sans-serif;
-  background: #fff;
+  background: #c0c0c0 !important; /* Samakan dengan warna tab dan window Win95 */
   color: #222;
   min-height: 120px;
   padding: 1rem;
@@ -486,10 +622,23 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
   width: 100%;
   box-sizing: border-box;
 }
-.window-content,
-.window-content * {
+.properties-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+  padding: 18px 18px 8px 18px;
+  background: #c0c0c0 !important; /* Samakan dengan warna tab dan window Win95 */
+  border: 2px solid #c0c0c0;
+  border-top: none;
   border-radius: 0 !important;
-  -webkit-border-radius: 0 !important;
+  overflow: auto;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  /* Kembalikan scrollbar retro dan border 3D tebal Win95 */
+  scrollbar-width: auto;
 }
 
 /* Windows 95 retro scrollbar for .window-content (Webkit/Chromium) */
@@ -628,16 +777,15 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
   transition: none;
 }
 .window-tab.active, .window-tab[aria-selected="true"] {
-  background: #fff;
-  color: #000;
+  background: #c0c0c0 !important; /* Tetap warna abu-abu Win95, tidak berubah putih saat aktif */
+  color: #000 !important;
   border-left: 2px solid #fff;
   border-top: 2px solid #fff;
   border-right: 2px solid #808080;
   border-bottom: 2px solid #fff;
   z-index: 2;
   height: 30px;
-  margin-bottom: -4px;
-  /* tab aktif naik ke atas, border bawah putih menyatu dengan konten */
+  margin-bottom: 0;
 }
 .window-tab:not(.active):not([aria-selected="true"]) {
   background: #c0c0c0;
@@ -702,7 +850,7 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
   min-height: 0;
   min-width: 0;
   padding: 18px 18px 8px 18px;
-  background: #fff;
+  background: #c0c0c0 !important; /* Samakan dengan warna tab dan window Win95 */
   border: 2px solid #c0c0c0;
   border-top: none;
   border-radius: 0 !important;
