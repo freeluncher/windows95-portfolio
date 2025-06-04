@@ -51,4 +51,4 @@ A retro-themed, fully responsive portfolio web app built with React, designed to
 
 ---
 
-© 2025 Your Name — This project is for portfolio/demo purposes only. Not affiliated with Microsoft.
+© 2025 Gandhi Satria Dewa — This project is for portfolio/demo purposes only. Not affiliated with Microsoft.
