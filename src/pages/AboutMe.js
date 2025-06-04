@@ -15,10 +15,8 @@ const win95Window = {
   borderRadius: 0,
   boxShadow: '2px 2px 0 #000, 1px 1px 0 #808080',
   fontFamily: 'MS Sans Serif, Tahoma, Geneva, sans-serif',
-  width: 420,
-  maxWidth: '100%',
-  margin: '0 auto',
   padding: 0,
+  // width, maxWidth, margin dihapus agar window mengikuti parent/handler
 };
 const win95Content = {
   padding: '18px 24px 18px 24px',
@@ -38,41 +36,43 @@ const AboutMe = () => {
           <button className={tab==='failures' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('failures')}><span>Failures</span></button>
           <button className={tab==='dream' ? 'window-tab active' : 'window-tab'} onClick={()=>setTab('dream')}><span>Dream</span></button>
         </div>
-        <div className="properties-content">
-          {tab==='general' && (
-            <div className="properties-general" style={{display: 'flex', alignItems: 'center', gap: 32}}>
-              <div className="properties-photo-area" style={{flex: '0 0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', height: 180, minWidth: 180}}>
-                <img src={userPhoto} alt="User" className="properties-photo" style={{width: 160, height: 160, border: '3px solid #808080', background: '#fff', objectFit: 'cover', borderRadius: 0, boxShadow: '2px 2px 0 #0008'}} />
+        <div className="aboutme-root">
+          <div className="aboutme-content">
+            {tab==='general' && (
+              <div className="properties-general" style={{display: 'flex', alignItems: 'center', gap: 32}}>
+                <div className="properties-photo-area" style={{flex: '0 0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', height: 180, minWidth: 180}}>
+                  <img src={userPhoto} alt="User" className="properties-photo" style={{width: 160, height: 160, border: '3px solid #808080', background: '#fff', objectFit: 'cover', borderRadius: 0, boxShadow: '2px 2px 0 #0008'}} />
+                </div>
+                <form className="properties-info properties-form" autoComplete="off" style={{flex: 1, display: 'grid', gridTemplateColumns: 'max-content 1fr', rowGap: 10, columnGap: 12, alignItems: 'center', marginTop: 0}}>
+                  <label className="properties-label" htmlFor="nama">Nama:</label>
+                  <input id="nama" type="text" defaultValue="Gandhi Satria Dewa" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
+                  <label className="properties-label" htmlFor="tgl">Tanggal Lahir:</label>
+                  <input id="tgl" type="text" defaultValue="6 May 2003" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
+                  <label className="properties-label" htmlFor="lokasi">Lokasi:</label>
+                  <input id="lokasi" type="text" defaultValue="Semarang, Indonesia" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
+                  <label className="properties-label" htmlFor="hobi">Hobi:</label>
+                  <input id="hobi" type="text" defaultValue="Programming, Design, Technology" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
+                  <label className="properties-label" htmlFor="email">Email:</label>
+                  <input id="email" type="text" defaultValue="gandhisatriadewa06@gmail.com" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
+                </form>
               </div>
-              <form className="properties-info properties-form" autoComplete="off" style={{flex: 1, display: 'grid', gridTemplateColumns: 'max-content 1fr', rowGap: 10, columnGap: 12, alignItems: 'center', marginTop: 0}}>
-                <label className="properties-label" htmlFor="nama">Nama:</label>
-                <input id="nama" type="text" defaultValue="Gandhi Satria Dewa" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
-                <label className="properties-label" htmlFor="tgl">Tanggal Lahir:</label>
-                <input id="tgl" type="text" defaultValue="6 May 2003" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
-                <label className="properties-label" htmlFor="lokasi">Lokasi:</label>
-                <input id="lokasi" type="text" defaultValue="Semarang, Indonesia" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
-                <label className="properties-label" htmlFor="hobi">Hobi:</label>
-                <input id="hobi" type="text" defaultValue="Programming, Design, Technology" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
-                <label className="properties-label" htmlFor="email">Email:</label>
-                <input id="email" type="text" defaultValue="gandhisatriadewa06@gmail.com" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
-              </form>
-            </div>
-          )}
-          {tab==='details' && (
-            <div className="properties-details">
-              <div className="properties-bio">
-                <b>About Gandhi</b>
-                <p>Hi! Saya Gandhi, suka ngoding sambil dengerin musik 8-bit. Pernah bikin website dari warnet, dan suka koleksi mousepad retro.</p>
-                <ul>
-                  <li>Fun Fact: Pernah ikut lomba mengetik cepat pakai keyboard jadul!</li>
-                  <li>MBTI: INFP</li>
-                  <li>Motto: "Keep it retro, keep it fun!"</li>
-                </ul>
+            )}
+            {tab==='details' && (
+              <div className="properties-details">
+                <div className="properties-bio">
+                  <b>About Gandhi</b>
+                  <p>Hi! Saya Gandhi, suka ngoding sambil dengerin musik 8-bit. Pernah bikin website dari warnet, dan suka koleksi mousepad retro.</p>
+                  <ul>
+                    <li>Fun Fact: Pernah ikut lomba mengetik cepat pakai keyboard jadul!</li>
+                    <li>MBTI: INFP</li>
+                    <li>Motto: "Keep it retro, keep it fun!"</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          )}
-          {tab==='failures' && <Failures />}
-          {tab==='dream' && <Dream />}
+            )}
+            {tab==='failures' && <Failures />}
+            {tab==='dream' && <Dream />}
+          </div>
         </div>
       </div>
     </section>
