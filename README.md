@@ -46,8 +46,8 @@ A retro-themed, fully responsive portfolio web app built with React, designed to
 
 ## Credits
 - Windows 95 UI inspiration and iconography
-- Cat pixel art by [author/source if applicable]
-- Sound effects from [source if applicable]
+- Cat pixel art by myself
+- Sound effects from [https://mixkit.co/free-sound-effects/click/]
 
 ---
 
