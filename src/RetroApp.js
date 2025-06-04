@@ -29,6 +29,7 @@ import contactIcon from './assets/modem-5.png';
 import notFoundIcon from './assets/directory_closed-4.png';
 import recycleBinIconEmpty from './assets/recycle_bin_empty.png';
 import recycleBinIconFull from './assets/recycle_bin_full.png';
+import CatPet from './components/CatPet';
 
 // Tambahkan komponen WallpaperWindow agar window wallpaper konsisten dengan window lain
 function WallpaperWindow({ wallpaper, setWallpaper, wallpaperPresets, onClose }) {
@@ -292,6 +293,7 @@ function RetroApp() {
           onEmptyRecycleBin={handleEmptyRecycleBin}
           wallpaper={wallpaper}
         />
+        <CatPet />
         <Taskbar 
           openWindows={openWindows.map(w => w.name)} 
           minimized={minimized} 
