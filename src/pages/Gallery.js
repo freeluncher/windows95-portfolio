@@ -1,38 +1,32 @@
 import React from 'react';
 import './Gallery.css';
 
-const win95Window = {
-  background: '#c0c0c0',
-  border: '2px solid #fff',
-  borderRightColor: '#808080',
-  borderBottomColor: '#808080',
-  borderRadius: 0,
-  boxShadow: '2px 2px 0 #000, 1px 1px 0 #808080',
-  fontFamily: 'MS Sans Serif, Tahoma, Geneva, sans-serif',
-  width: 420,
-  maxWidth: '100%',
-  margin: '0 auto',
-  padding: 0,
-};
-const win95Content = {
-  padding: '18px 24px 18px 24px',
-  background: '#c0c0c0',
-  minHeight: 180,
-  textAlign: 'center',
-};
+const galleryItems = [
+  { src: require('../assets/computer-4.png'), label: 'PC.png' },
+  { src: require('../assets/directory_closed-4.png'), label: 'Folder.png' },
+  { src: require('../assets/modem-5.png'), label: 'Modem.png' },
+  { src: require('../assets/cat-sitting.gif'), label: 'Cat.gif' },
+  { src: require('../assets/gallery.png'), label: 'Gallery.png' },
+  { src: require('../assets/cat-sitting-border.gif'), label: 'CatBorder.gif' },
+  { src: require('../assets/cat-sitting-2.gif'), label: 'Cat2.gif' },
+];
 
 const Gallery = () => (
-  <section className="win95-window" style={win95Window}>
-    <div className="win95-content" style={win95Content}>
-      <h1>Gallery</h1>
-      <div style={{display:'flex',gap:16,flexWrap:'wrap'}}>
-        <img src="/assets/computer-4.png" alt="Foto 1" style={{width:120,borderRadius:8}} />
-        <img src="/assets/directory_closed-4.png" alt="Foto 2" style={{width:120,borderRadius:8}} />
-        <img src="/assets/modem-5.png" alt="Foto 3" style={{width:120,borderRadius:8}} />
-        <video width="180" controls style={{borderRadius:8}}>
-          <source src="/assets/sample.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+  <section className="gallery-explorer">
+    <div className="gallery-explorer-toolbar">
+      <button>File</button>
+      <button>Edit</button>
+      <button>View</button>
+      <span style={{marginLeft:'auto',color:'#222',fontSize:13}}>C:\Portfolio\Gallery</span>
+    </div>
+    <div className="gallery-explorer-content">
+      <div className="gallery-grid">
+        {galleryItems.map((item, idx) => (
+          <div className="gallery-item" key={idx}>
+            <img src={item.src} alt={item.label} />
+            <div className="gallery-item-label">{item.label}</div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
