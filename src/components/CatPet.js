@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
+import { CatPetControlContext } from '../RetroApp';
 
 // Konfigurasi sprite
 const SPRITE_COUNT = 8;
@@ -18,51 +19,18 @@ function getCatSprite(type, dir, frame) {
 }
 
 const CatPet = () => {
-  const [x, setX] = useState(200); // posisi horizontal
-  const [dir, setDir] = useState('right'); // 'right' | 'left'
-  const [anim, setAnim] = useState('idle'); // 'idle' | 'walk'
+  const catControl = useContext(CatPetControlContext);
   const [frame, setFrame] = useState(0);
-  const [moving, setMoving] = useState(false);
   const animRef = useRef();
-
-  // Keyboard event
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.repeat) return;
-      if (e.key === 'ArrowRight') {
-        setDir('right');
-        setAnim('walk');
-        setMoving(true);
-      } else if (e.key === 'ArrowLeft') {
-        setDir('left');
-        setAnim('walk');
-        setMoving(true);
-      }
-    };
-    const handleKeyUp = (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-        setAnim('idle');
-        setMoving(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('keyup', handleKeyUp);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('keyup', handleKeyUp);
-    };
-  }, []);
 
   // Animasi frame
   useEffect(() => {
     if (!animRef.current) animRef.current = { raf: null };
-    let last = Date.now();
     function loop() {
-      if (anim === 'walk' && moving) {
+      if (catControl.anim === 'walk' && catControl.moving) {
         setFrame(f => (f + 1) % SPRITE_COUNT);
-        setX(x0 => {
-          let next = dir === 'right' ? x0 + WALK_SPEED : x0 - WALK_SPEED;
-          // Batas layar
+        catControl.setX(x0 => {
+          let next = catControl.dir === 'right' ? x0 + WALK_SPEED : x0 - WALK_SPEED;
           next = Math.max(0, Math.min(window.innerWidth - SPRITE_SIZE, next));
           return next;
         });
@@ -73,10 +41,31 @@ const CatPet = () => {
     }
     animRef.current.raf = setTimeout(loop, ANIMATION_INTERVAL);
     return () => clearTimeout(animRef.current.raf);
-  }, [anim, moving, dir]);
+  }, [catControl.anim, catControl.moving, catControl.dir]);
+
+  // Keyboard control (arrow keys) hanya aktif di desktop (non-touch)
+  useEffect(() => {
+    const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+    if (isTouchDevice) return;
+    const handleKeyDown = (e) => {
+      if (e.repeat) return;
+      if (e.key === 'ArrowLeft') catControl.moveLeft();
+      if (e.key === 'ArrowRight') catControl.moveRight();
+      if (e.key === 'ArrowDown' || e.key === ' ') catControl.idle();
+    };
+    const handleKeyUp = (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') catControl.idle();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [catControl]);
 
   // Sprite path
-  const sprite = getCatSprite(anim, dir, frame);
+  const sprite = getCatSprite(catControl.anim, catControl.dir, frame);
 
   return (
     <img
@@ -84,7 +73,7 @@ const CatPet = () => {
       alt="Cat Pet"
       style={{
         position: 'fixed',
-        left: x,
+        left: catControl.x,
         bottom: TASKBAR_HEIGHT - 9, // lebih menempel ke taskbar
         width: SPRITE_SIZE,
         height: SPRITE_SIZE,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import Desktop from './components/Desktop';
@@ -30,6 +30,9 @@ import notFoundIcon from './assets/directory_closed-4.png';
 import recycleBinIconEmpty from './assets/recycle_bin_empty.png';
 import recycleBinIconFull from './assets/recycle_bin_full.png';
 import CatPet from './components/CatPet';
+import CatPetControllerWindow from './components/CatPetControllerWindow';
+
+export const CatPetControlContext = createContext();
 
 // Tambahkan komponen WallpaperWindow agar window wallpaper konsisten dengan window lain
 function WallpaperWindow({ wallpaper, setWallpaper, wallpaperPresets, onClose }) {
@@ -74,6 +77,18 @@ function RetroApp() {
   const [wallpaper, setWallpaper] = useState(wallpaperPresets[0]);
   const [closedWindows, setClosedWindows] = useState([]);
 
+  // State & handler CatPet
+  const [catX, setCatX] = useState(200);
+  const [catDir, setCatDir] = useState('right');
+  const [catAnim, setCatAnim] = useState('idle');
+  const [catMoving, setCatMoving] = useState(false);
+  const catControl = {
+    moveLeft: () => { setCatDir('left'); setCatAnim('walk'); setCatMoving(true); },
+    moveRight: () => { setCatDir('right'); setCatAnim('walk'); setCatMoving(true); },
+    idle: () => { setCatAnim('idle'); setCatMoving(false); },
+    x: catX, dir: catDir, anim: catAnim, moving: catMoving, setX: setCatX
+  };
+
   // --- moved from top-level scope ---
   function playRetroSound(type, enabled) {
     if (!enabled) return;
@@ -97,6 +112,7 @@ function RetroApp() {
     { id: 10, label: 'Contact', icon: contactIcon, window: 'contact' },
     { id: 11, label: '404', icon: notFoundIcon, window: 'notfound' },
     { id: 12, label: 'Recycle Bin', icon: recycleBinIconEmpty, window: 'recycleBin' },
+    { id: 13, label: 'Cat Controller', icon: require('./assets/joystick-5.png'), window: 'catController', mobileOnly: true },
   ];
 
   // --- FIX: Update recycle bin icon based on closedWindows ---
@@ -118,12 +134,17 @@ function RetroApp() {
     { name: 'notfound', title: '404', Component: NotFound },
     { name: 'recycleBin', title: 'Recycle Bin', Component: (props) => <RecycleBin {...props} /> },
     { name: 'wallpaper', title: 'Wallpaper', Component: (props) => <WallpaperWindow {...props} wallpaper={wallpaper} setWallpaper={setWallpaper} wallpaperPresets={wallpaperPresets} onClose={()=>setOpenWindows(ws=>ws.filter(w=>w.name!=='wallpaper'))} /> },
+    { name: 'catController', title: 'Cat Controller', Component: (props) => <CatPetControllerWindow {...props} /> },
   ];
 
   // --- LOG STATE ON EVERY RENDER ---
   console.log('[RENDER] openWindows:', openWindows);
   console.log('[RENDER] closedWindows:', closedWindows);
   console.log('[RENDER] minimized:', minimized);
+
+  // Filter icon Cat Controller hanya muncul di mobile
+  const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+  const filteredIcons = isTouchDevice ? iconsWithDynamicRecycleBin : iconsWithDynamicRecycleBin.filter(icon => !icon.mobileOnly);
 
   // Helper: get zIndex for a window
   const getZIndex = (name) => {
@@ -278,34 +299,36 @@ function RetroApp() {
     });
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div style={{width:'100vw',height:'100vh',overflow:'hidden'}}>
-        <Desktop
-          icons={iconsWithDynamicRecycleBin}
-          windows={desktopWindows}
-          onIconDoubleClick={handleOpenWindow}
-          onWindowClose={handleCloseWindow}
-          onWindowMinimize={handleMinimizeWindow}
-          onWindowClick={handleFocusWindow}
-          onDragToRecycleBin={handleDragToRecycleBin}
-          closedWindows={closedWindows}
-          onRestoreWindow={handleRestoreClosedWindow}
-          onEmptyRecycleBin={handleEmptyRecycleBin}
-          wallpaper={wallpaper}
-        />
-        <CatPet />
-        <Taskbar 
-          openWindows={openWindows.map(w => w.name)} 
-          minimized={minimized} 
-          onFocusWindow={handleFocusWindow} 
-          onRestoreWindow={handleRestoreWindow}
-          onStartMenu={handleOpenWindow}
-          soundEnabled={soundEnabled}
-          onToggleSound={() => setSoundEnabled(v => !v)}
-          onWallpaperMenu={() => setOpenWindows(ws => ws.some(w=>w.name==='wallpaper')?ws:[...ws,{name:'wallpaper',z:zCounter+1}])}
-        />
-      </div>
-    </DndProvider>
+    <CatPetControlContext.Provider value={catControl}>
+      <DndProvider backend={HTML5Backend}>
+        <div style={{width:'100vw',height:'100vh',overflow:'hidden'}}>
+          <Desktop
+            icons={filteredIcons}
+            windows={desktopWindows}
+            onIconDoubleClick={handleOpenWindow}
+            onWindowClose={handleCloseWindow}
+            onWindowMinimize={handleMinimizeWindow}
+            onWindowClick={handleFocusWindow}
+            onDragToRecycleBin={handleDragToRecycleBin}
+            closedWindows={closedWindows}
+            onRestoreWindow={handleRestoreClosedWindow}
+            onEmptyRecycleBin={handleEmptyRecycleBin}
+            wallpaper={wallpaper}
+          />
+          <CatPet />
+          <Taskbar 
+            openWindows={openWindows.map(w => w.name)} 
+            minimized={minimized} 
+            onFocusWindow={handleFocusWindow} 
+            onRestoreWindow={handleRestoreWindow}
+            onStartMenu={handleOpenWindow}
+            soundEnabled={soundEnabled}
+            onToggleSound={() => setSoundEnabled(v => !v)}
+            onWallpaperMenu={() => setOpenWindows(ws => ws.some(w=>w.name==='wallpaper')?ws:[...ws,{name:'wallpaper',z:zCounter+1}])}
+          />
+        </div>
+      </DndProvider>
+    </CatPetControlContext.Provider>
   );
 }
 

@@ -42,7 +42,11 @@ const Desktop = ({
   let positions = [];
   let x = 24;
   let y = 32;
-  const maxHeight = window.innerHeight || 800;
+  // Ambil tinggi taskbar (default 48, bisa diubah jika taskbar beda)
+  const TASKBAR_HEIGHT = 48;
+  const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+  // Untuk mobile: wrap horizontal jika tinggi sudah penuh (100vh - taskbar)
+  const maxHeight = isTouchDevice ? (window.innerHeight - TASKBAR_HEIGHT) : (window.innerHeight || 800);
   iconsWithDynamicRecycleBin.forEach((icon, idx) => {
     if (y + iconHeight > maxHeight - 32) {
       y = 32;
@@ -52,8 +56,23 @@ const Desktop = ({
     y += iconHeight + iconGap;
   });
 
+  // Pada mobile, gunakan flexbox untuk .desktop-area dan .desktop-icon agar wrap horizontal
+  // dan hilangkan posisi absolute
   return (
-    <div className="desktop-area" style={{position: 'relative', width: '100vw', height: '100vh', ...bgStyle}}>
+    <div
+      className="desktop-area"
+      style={{
+        position: 'relative',
+        width: '100vw',
+        height: '100vh',
+        display: isTouchDevice ? 'flex' : 'block',
+        flexWrap: isTouchDevice ? 'wrap' : undefined,
+        alignItems: isTouchDevice ? 'flex-start' : undefined,
+        justifyContent: isTouchDevice ? 'flex-start' : undefined,
+        overflowY: isTouchDevice ? 'auto' : 'hidden',
+        ...bgStyle,
+      }}
+    >
       {/* Desktop Icons */}
       {iconsWithDynamicRecycleBin.map((icon, idx) => (
         <DesktopIcon
@@ -65,7 +84,6 @@ const Desktop = ({
           defaultPosition={positions[idx]}
         />
       ))}
-
       {/* Windows */}
       {windows && windows.map(win => (
         <Window
