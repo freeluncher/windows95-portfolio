@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# Windows 95 Portfolio (React)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A retro-themed, fully responsive portfolio web app built with React, designed to authentically mimic the look, feel, and behavior of Windows 95. All windows, icons, and UI elements are styled and behave like the original OS, with modern enhancements for mobile and touch support.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Authentic Windows 95 UI**: All windows (About Me, Skills, Projects, Gallery, Contact, etc.) use true Win95 layouts, draggable/resizable on desktop, modal on mobile.
+- **Desktop Icons**: Click/tap to open windows. On mobile, icons wrap horizontally when reaching the bottom of the screen (above the taskbar).
+- **Responsive & Modular CSS**: All components/pages use modular, responsive CSS for desktop and mobile.
+- **Cat Desktop Pet**: A pixel-art cat walks along the taskbar, can be controlled with keyboard arrows (desktop) or an on-screen controller (mobile).
+- **Cat Controller**: Mobile-only window and icon to control the cat with on-screen buttons.
+- **BSOD Easter Egg**: Press Ctrl+Shift+B for a classic Blue Screen of Death.
+- **Taskbar & Start Menu**: Retro taskbar with open/minimized windows, Start menu, and wallpaper switcher.
+- **Recycle Bin**: Drag windows to the bin to close, restore from bin, and see dynamic icon changes.
+- **Touch & Keyboard Support**: All features work on both desktop and mobile/touch devices.
 
-### `npm start`
+## Screenshots
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![Desktop Screenshot](./src/assets/screenshot-desktop.png)
+![Mobile Screenshot](./src/assets/screenshot-mobile.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+1. **Install dependencies:**
+   ```sh
+   npm install
+   ```
+2. **Start the development server:**
+   ```sh
+   npm start
+   ```
+3. **Open in browser:**
+   Visit [http://localhost:3000](http://localhost:3000)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project Structure
 
-### `npm run build`
+- `src/components/` — All Win95 UI components (Desktop, Window, Taskbar, CatPet, etc.)
+- `src/pages/` — Portfolio content pages (AboutMe, Skills, Projects, Gallery, Contact, etc.)
+- `src/assets/` — Pixel art, icons, cat sprites, and sound effects
+- `src/RetroApp.js` — Main app logic, state, and context
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Customization
+- **Add/Edit Windows:** Add new pages in `src/pages/` and register them in `RetroApp.js`.
+- **Change Cat Pet:** Replace cat sprites in `src/assets/`.
+- **Wallpapers:** Add images to `src/assets/` and register in `RetroApp.js`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Credits
+- Windows 95 UI inspiration and iconography
+- Cat pixel art by [author/source if applicable]
+- Sound effects from [source if applicable]
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+© 2025 Your Name — This project is for portfolio/demo purposes only. Not affiliated with Microsoft.
