@@ -4,7 +4,7 @@ import Dream from './Dream';
 
 // Gunakan asset yang sudah ada
 import folderIcon from '../assets/mydocs.png';
-import userPhoto from '../assets/camera.png'; // Ganti dengan foto user jika ada
+import userPhoto from '../assets/profile.jpg'; // Ganti dengan foto user jika ada
 
 const AboutMe = () => {
   const [tab, setTab] = useState('general');
@@ -18,18 +18,22 @@ const AboutMe = () => {
       </div>
       <div className="properties-content">
         {tab==='general' && (
-          <div className="properties-general">
-            <div className="properties-icon-area">
-              <img src={folderIcon} alt="Folder Icon" className="properties-icon" />
-              <img src={userPhoto} alt="User" className="properties-photo" />
+          <div className="properties-general" style={{display: 'flex', alignItems: 'center', gap: 32}}>
+            <div className="properties-photo-area" style={{flex: '0 0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', height: 180, minWidth: 180}}>
+              <img src={userPhoto} alt="User" className="properties-photo" style={{width: 160, height: 160, border: '3px solid #808080', background: '#fff', objectFit: 'cover', borderRadius: 0, boxShadow: '2px 2px 0 #0008'}} />
             </div>
-            <div className="properties-info">
-              <div><span className="properties-label">Name:</span> Gandhi</div>
-              <div><span className="properties-label">Type:</span> Folder</div>
-              <div><span className="properties-label">Location:</span> C:\Users\Gandhi\Portfolio</div>
-              <div><span className="properties-label">Size:</span> 1.44 MB (floppy style!)</div>
-              <div><span className="properties-label">Created:</span> 2000-01-01</div>
-            </div>
+            <form className="properties-info properties-form" autoComplete="off" style={{flex: 1, display: 'grid', gridTemplateColumns: 'max-content 1fr', rowGap: 10, columnGap: 12, alignItems: 'center', marginTop: 0}}>
+              <label className="properties-label" htmlFor="nama">Nama:</label>
+              <input id="nama" type="text" defaultValue="Gandhi Satria Dewa" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
+              <label className="properties-label" htmlFor="tgl">Tanggal Lahir:</label>
+              <input id="tgl" type="text" defaultValue="6 May 2003" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
+              <label className="properties-label" htmlFor="lokasi">Lokasi:</label>
+              <input id="lokasi" type="text" defaultValue="Semarang, Indonesia" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
+              <label className="properties-label" htmlFor="hobi">Hobi:</label>
+              <input id="hobi" type="text" defaultValue="Programming, Design, Technology" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
+              <label className="properties-label" htmlFor="email">Email:</label>
+              <input id="email" type="text" defaultValue="gandhisatriadewa06@gmail.com" className="retro-input" style={{width: '100%', fontFamily: 'inherit', fontSize: 16, padding: '2px 6px', border: '2px inset #808080', background: '#fff', color: '#222', borderRadius: 0}} readOnly />
+            </form>
           </div>
         )}
         {tab==='details' && (
@@ -40,7 +44,7 @@ const AboutMe = () => {
               <ul>
                 <li>Fun Fact: Pernah ikut lomba mengetik cepat pakai keyboard jadul!</li>
                 <li>MBTI: INFP</li>
-                <li>Hobi: Pixel art, main game klasik, ngoprek hardware</li>
+                <li>Motto: "Keep it retro, keep it fun!"</li>
               </ul>
             </div>
           </div>
