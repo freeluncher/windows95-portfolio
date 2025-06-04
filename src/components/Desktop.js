@@ -61,6 +61,7 @@ const Desktop = ({
           icon={icon.icon}
           label={icon.label}
           onDoubleClick={() => onIconDoubleClick(icon.window)}
+          onOpen={() => onIconDoubleClick(icon.window)}
           defaultPosition={positions[idx]}
         />
       ))}

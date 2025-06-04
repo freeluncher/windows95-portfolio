@@ -38,3 +38,55 @@
   background: #00fff7;
   border-color: #ff00cc;
 }
+
+@media (max-width: 700px) {
+  .skills-content {
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    font-size: 14px;
+  }
+  fieldset {
+    padding: 6px 4px 2px 4px !important;
+    margin: 0 0 8px 0 !important;
+  }
+  .skill-bar {
+    min-width: 0;
+    height: 13px;
+  }
+  .skill-label {
+    min-width: 70px;
+    font-size: 13px;
+  }
+  .skill-soundbar-segment {
+    width: 8px;
+    height: 13px;
+  }
+  .btn {
+    font-size: 13px !important;
+    padding: 4px 12px !important;
+    min-width: 56px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-content {
+    padding: 0.25rem 0.25rem 0.25rem 0.25rem;
+    font-size: 12px;
+  }
+  fieldset {
+    padding: 4px 2px 2px 2px !important;
+    margin: 0 0 6px 0 !important;
+  }
+  .skill-bar {
+    min-width: 0;
+    height: 10px;
+  }
+  .skill-label {
+    min-width: 48px;
+    font-size: 11px;
+  }
+  .btn {
+    font-size: 11px !important;
+    padding: 2px 8px !important;
+    min-width: 40px !important;
+  }
+}

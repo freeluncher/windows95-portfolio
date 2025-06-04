@@ -708,13 +708,13 @@ body, .App, .desktop-area, .retro-window, .window-title, .window-content, .deskt
     scrollbar-width: thin !important;
   }
 }
-/* Hanya window utama yang dapat border 3D, bukan icon desktop */
-/* (Dihapus, border 3D hanya di .window-outer, bukan di wrapper Draggable) */
-
-/* Hapus style global .react-draggable agar icon desktop tidak kena border 3D */
-.react-draggable,
-.react-draggable > div {
-  border: none;
-  box-shadow: none;
-  background: none;
+@media (pointer: coarse), (max-width: 900px) {
+  .desktop-icon {
+    position: static !important;
+    margin-bottom: 16px;
+    margin-right: 16px;
+  }
+  .desktop-area {
+    overflow-y: auto;
+  }
 }

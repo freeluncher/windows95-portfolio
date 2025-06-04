@@ -35,3 +35,30 @@
 .contact-form button {
   margin-top: 0.5rem;
 }
+
+@media (max-width: 700px) {
+  .contact-content {
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    font-size: 14px;
+  }
+  .contact-form label {
+    font-size: 13px;
+  }
+  .contact-form input, .contact-form textarea {
+    font-size: 13px;
+    padding: 0.25rem;
+  }
+}
+@media (max-width: 480px) {
+  .contact-content {
+    padding: 0.25rem 0.25rem 0.25rem 0.25rem;
+    font-size: 12px;
+  }
+  .contact-form label {
+    font-size: 11px;
+  }
+  .contact-form input, .contact-form textarea {
+    font-size: 11px;
+    padding: 0.15rem;
+  }
+}

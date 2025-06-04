@@ -164,6 +164,152 @@ const Window = ({ title, children, onClose, onMinimize, onClick, zIndex, top = 1
     handleClose();
   };
 
+  // Deteksi device touch
+  const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+
+  if (isTouchDevice) {
+    // MOBILE: tampilkan window sebagai modal fixed, tidak draggable, tidak resizable
+    // Tombol close langsung panggil onClose tanpa animasi
+    const handleCloseClickMobile = (e) => {
+      e.stopPropagation();
+      if (onClose) onClose();
+    };
+    return (
+      <div
+        ref={nodeRef}
+        className="window-outer"
+        style={{
+          position: 'fixed',
+          zIndex: zIndex || 100,
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          minWidth: 'unset',
+          minHeight: 'unset',
+          pointerEvents: closing ? 'none' : 'auto',
+          opacity: closing ? 0 : 1,
+          transition: 'opacity 0.18s',
+          borderLeft: '2px solid #fff',
+          borderTop: '2px solid #fff',
+          borderRight: '2px solid #808080',
+          borderBottom: '2px solid #808080',
+          boxShadow: '2px 2px 0 #000, 1px 1px 0 #808080',
+          borderRadius: 0,
+          background: '#c0c0c0',
+          boxSizing: 'border-box',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+        onAnimationEnd={handleAnimationEnd}
+      >
+        <div
+          className={`retro-window notepad-window`}
+          style={{
+            width: '100%',
+            height: '100%',
+            minWidth: 0,
+            minHeight: 0,
+            zIndex: zIndex || 100,
+            background: '#c0c0c0',
+            border: 'none',
+            position: 'relative',
+            padding: 0,
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+            flex: 1,
+          }}
+        >
+          <div
+            className="window-inner window-anim-open"
+            style={{
+              width: '100%',
+              height: '100%',
+              background: '#fff',
+              borderLeft: '1px solid #808080',
+              borderRight: '1px solid #fff',
+              borderBottom: '1px solid #fff',
+              borderTop: 'none',
+              boxShadow: 'none',
+              padding: 0,
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <div
+              className="window-title"
+              style={{
+                fontFamily: 'MS Sans Serif, Tahoma, Geneva, sans-serif',
+                background: '#000080',
+                color: '#fff',
+                padding: '2px 8px',
+                cursor: 'default',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                userSelect: 'none',
+                height: 28,
+                borderBottom: '2px solid #808080',
+                boxShadow: '0 1px 0 #fff inset',
+                flex: '0 0 28px',
+              }}
+            >
+              <span style={{fontWeight:'normal', fontSize:15, letterSpacing:0.5}}>{title}</span>
+              <div style={{display:'flex',gap:4}}>
+                <button onClick={handleMinimizeClick} style={{background:'#c0c0c0',border:'1px solid #808080',borderRightColor:'#fff',borderBottomColor:'#fff',borderLeftColor:'#808080',borderTopColor:'#808080',width:20,height:20,cursor:'pointer',fontWeight:'bold',fontSize:13,boxShadow:'1px 1px 0 #fff inset',padding:0}} title="Minimize">_</button>
+                <button onClick={handleCloseClickMobile} style={{background:'#c0c0c0',border:'1px solid #808080',borderRightColor:'#fff',borderBottomColor:'#fff',borderLeftColor:'#808080',borderTopColor:'#808080',width:20,height:20,cursor:'pointer',fontWeight:'bold',fontSize:13,boxShadow:'1px 1px 0 #fff inset',padding:0}}>X</button>
+              </div>
+            </div>
+            <div className="notepad-menubar" style={{
+              display: 'flex',
+              alignItems: 'center',
+              background: '#e0e0e0',
+              borderBottom: '2px solid #808080',
+              borderTop: '1px solid #fff',
+              height: 22,
+              paddingLeft: 6,
+              fontFamily: 'MS Sans Serif, Tahoma, Geneva, sans-serif',
+              fontSize: 14,
+              color: '#222',
+              userSelect: 'none',
+              flex: '0 0 22px',
+            }}>
+              <span style={{marginRight: 18, cursor:'default'}}>File</span>
+              <span style={{marginRight: 18, cursor:'default'}}>Edit</span>
+              <span style={{marginRight: 18, cursor:'default'}}>Search</span>
+              <span style={{marginRight: 18, cursor:'default'}}>Help</span>
+            </div>
+            <div
+              className="window-content notepad-content"
+              ref={contentRef}
+              style={{
+                flex: '1 1 0',
+                minHeight: 60,
+                minWidth: 0,
+                padding: '8px 4px',
+                background: '#fff',
+                color: '#222',
+                fontFamily: 'Courier New, monospace',
+                fontSize: 15,
+                whiteSpace: 'pre-wrap',
+                overflow: 'auto',
+                border: 'none',
+                boxSizing: 'border-box',
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              {children}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Draggable
       handle=".window-title"
