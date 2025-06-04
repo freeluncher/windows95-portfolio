@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Failures from './Failures';
 import Dream from './Dream';
+import './AboutMe.css';
 
 // Gunakan asset yang sudah ada
 import folderIcon from '../assets/mydocs.png';

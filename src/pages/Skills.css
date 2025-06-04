@@ -1,0 +1,40 @@
+/* Skills window Win95/retro styles */
+
+.skills-content {
+  padding: 1.5rem 1.5rem 1rem 1.5rem;
+  background: #c0c0c0;
+  color: #222;
+  font-size: 15px;
+}
+
+.skill-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.skill-label {
+  min-width: 120px;
+  font-family: 'MS Sans Serif', 'Tahoma', 'Geneva', sans-serif;
+  font-size: 15px;
+  color: #000080;
+}
+
+.skill-soundbar {
+  display: flex;
+  gap: 2px;
+  margin-left: 12px;
+}
+
+.skill-soundbar-segment {
+  width: 12px;
+  height: 18px;
+  background: #e4e4e4;
+  border: 1px solid #808080;
+  box-shadow: 1px 1px 0 #fff inset;
+}
+
+.skill-soundbar-segment.active {
+  background: #00fff7;
+  border-color: #ff00cc;
+}

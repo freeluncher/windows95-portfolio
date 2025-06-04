@@ -1,4 +1,5 @@
 import React from 'react';
+import './Contact.css';
 
 const win95Window = {
   background: '#c0c0c0',
