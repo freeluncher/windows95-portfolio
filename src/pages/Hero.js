@@ -202,7 +202,7 @@ const Hero = () => {
           <img src="/assets/internet-explorer.png" alt="IE" style={{width:22,marginRight:6}} onError={e=>e.target.style.display='none'} />
           <span>Welcome - Gandhi Satria Dewa</span>
         </span>
-        <span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 2, whiteSpace: 'nowrap', overflow: 'hidden' }}>
           <button style={win95Btn} title="Minimize">_</button>
           <button style={win95Btn} title="Maximize">▢</button>
           <button style={win95Btn} title="Close">✕</button>
