@@ -1,80 +1,270 @@
-import React from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
+import profileAnimated from '../assets/profile_animated.png';
+import blink0 from '../assets/blink0.png';
+import blink1 from '../assets/blink1.png';
+import blink2 from '../assets/blink2.png';
+import blink3 from '../assets/blink3.png';
+import blink4 from '../assets/blink4.png';
+import blink5 from '../assets/blink5.png';
+import blink6 from '../assets/blink6.png';
 
-const ie95Window = {
-  background: '#fff',
-  border: '2px solid #808080',
-  borderTopColor: '#fff',
-  borderLeftColor: '#fff',
-  borderRadius: 0,
-  boxShadow: '2px 2px 0 #000, 1px 1px 0 #808080',
-  fontFamily: 'MS Sans Serif, Tahoma, Geneva, sans-serif',
-  width: 420,
-  maxWidth: '100%',
-  margin: '0 auto',
-  padding: 0,
-};
-const ie95Toolbar = {
-  display: 'flex',
-  alignItems: 'center',
-  background: 'linear-gradient(to bottom,#e4e4e4 80%,#c0c0c0 100%)',
-  borderBottom: '2px solid #808080',
-  padding: '2px 6px',
-  height: 32,
-  gap: 6,
-};
-const ie95Btn = {
-  width: 24,
-  height: 24,
-  background: '#e4e4e4',
-  border: '2px outset #fff',
+const win95Window = {
+  background: '#c0c0c0',
+  border: '2px solid #fff',
   borderRightColor: '#808080',
   borderBottomColor: '#808080',
   borderRadius: 0,
-  marginRight: 4,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  cursor: 'pointer',
+  boxShadow: '2px 2px 0 #000, 1px 1px 0 #808080',
+  fontFamily: 'MS Sans Serif, Tahoma, Geneva, sans-serif',
+  width: 440,
+  maxWidth: '100%',
+  margin: '32px auto',
   padding: 0,
 };
-const ie95AddrBar = {
-  flex: 1,
-  background: '#fff',
-  border: '2px inset #808080',
-  height: 22,
-  fontSize: 14,
-  padding: '0 6px',
-  marginLeft: 8,
-  fontFamily: 'MS Sans Serif, Tahoma, Geneva, sans-serif',
+const win95Titlebar = {
+  background: 'linear-gradient(to bottom, #000080 80%, #1084d0 100%)',
+  color: '#fff',
+  padding: '4px 12px',
+  fontWeight: 'bold',
+  fontSize: 17,
+  letterSpacing: 0.5,
+  borderBottom: '2px solid #808080',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  userSelect: 'none',
+  height: 32,
 };
-const ie95Content = {
-  padding: '18px 24px 18px 24px',
+const win95Content = {
+  padding: '28px 32px 24px 32px',
   background: '#fff',
   minHeight: 180,
   textAlign: 'center',
+  borderTop: '2px solid #fff',
+};
+const win95Btn = {
+  width: 22,
+  height: 22,
+  background: '#c0c0c0',
+  border: '1.5px solid #808080',
+  borderRightColor: '#fff',
+  borderBottomColor: '#fff',
+  borderLeftColor: '#808080',
+  borderTopColor: '#808080',
+  marginLeft: 6,
+  color: '#000',
+  fontWeight: 'bold',
+  fontSize: 15,
+  cursor: 'pointer',
+  boxShadow: '1px 1px 0 #fff inset',
+  padding: 0,
+  borderRadius: 0,
 };
 
-const Hero = () => (
-  <section className="ie95-window" style={ie95Window}>
-    <div className="ie95-toolbar" style={ie95Toolbar}>
-      <span style={{marginRight:4}}>
-        <img src="/assets/internet-explorer.png" alt="IE" style={{width:20,verticalAlign:'middle'}} onError={e=>e.target.style.display='none'} />
-      </span>
-      <button className="ie95-btn" style={ie95Btn} title="Back"><img src="/assets/ie-back.png" alt="Back" style={{width:16}} onError={e=>e.target.style.display='none'} /></button>
-      <button className="ie95-btn" style={ie95Btn} title="Forward"><img src="/assets/ie-forward.png" alt="Forward" style={{width:16}} onError={e=>e.target.style.display='none'} /></button>
-      <button className="ie95-btn" style={ie95Btn} title="Stop"><img src="/assets/ie-stop.png" alt="Stop" style={{width:16}} onError={e=>e.target.style.display='none'} /></button>
-      <button className="ie95-btn" style={ie95Btn} title="Refresh"><img src="/assets/ie-refresh.png" alt="Refresh" style={{width:16}} onError={e=>e.target.style.display='none'} /></button>
-      <input className="ie95-addrbar" style={ie95AddrBar} value="https://gandhi.dev" readOnly aria-label="Address bar" />
-    </div>
-    <div className="ie95-content" style={ie95Content}>
-      <h1 className="ie95-title" style={{fontSize:22,margin:'18px 0 8px 0',color:'#000',fontFamily:'MS Sans Serif, Tahoma, Geneva, sans-serif'}}>Gandhi</h1>
-      <h2 className="ie95-subtitle" style={{fontSize:15,margin:'0 0 18px 0',color:'#222',fontWeight:'normal'}}>Web Developer | Graphic Designer | IT Enthusiast</h2>
-      <div className="ie95-img" style={{margin: '2rem 0'}}>
-        <img src="/assets/computer-4.png" alt="Gandhi Illustration" style={{width: 120, animation: 'float 2s infinite alternate'}} />
+const blinkFrames = [blink0, blink1, blink2, blink3, blink4, blink5, blink6];
+
+const Hero = () => {
+  const avatarRef = useRef(null);
+  const [eyePos, setEyePos] = useState({ left: { x: 0, y: 0 }, right: { x: 0, y: 0 } });
+  const [isBlinking, setIsBlinking] = useState(false);
+  const [blinkFrame, setBlinkFrame] = useState(0);
+  const [isIdle, setIsIdle] = useState(false);
+  const blinkTimeout = useRef();
+  const blinkInterval = useRef();
+
+  const leftEye = useMemo(() => ({ x: 108, y: 95 }), []);
+  const rightEye = useMemo(() => ({ x: 149, y: 95 }), []);
+  const eyeRadius = 1.8;
+  const pupilRadius = 4.2;
+
+  useEffect(() => {
+    let idleTimeout;
+    const setIdle = () => {
+      setIsIdle(true);
+    };
+    const resetIdle = () => {
+      setIsIdle(false);
+      if (idleTimeout) clearTimeout(idleTimeout);
+      idleTimeout = setTimeout(setIdle, 2500); // 2.5 detik idle
+    };
+    window.addEventListener('mousemove', resetIdle);
+    resetIdle();
+    return () => {
+      window.removeEventListener('mousemove', resetIdle);
+      if (idleTimeout) clearTimeout(idleTimeout);
+    };
+  }, []);
+
+  useEffect(() => {
+    // BLINK LOOP selama idle
+    if (!isIdle) {
+      setIsBlinking(false);
+      setBlinkFrame(0);
+      if (blinkTimeout.current) clearTimeout(blinkTimeout.current);
+      if (blinkInterval.current) clearInterval(blinkInterval.current);
+      return;
+    }
+    const startBlink = () => {
+      setIsBlinking(true);
+      setBlinkFrame(0);
+      let frame = 0;
+      blinkInterval.current = setInterval(() => {
+        frame++;
+        setBlinkFrame(frame);
+        if (frame >= blinkFrames.length - 1) {
+          clearInterval(blinkInterval.current);
+          setTimeout(() => {
+            setIsBlinking(false);
+            setBlinkFrame(0);
+            // Ulangi blink jika masih idle
+            if (isIdle) {
+              blinkTimeout.current = setTimeout(startBlink, 1200);
+            }
+          }, 80);
+        }
+      }, 60);
+    };
+    startBlink();
+    return () => {
+      if (blinkTimeout.current) clearTimeout(blinkTimeout.current);
+      if (blinkInterval.current) clearInterval(blinkInterval.current);
+    };
+  }, [isIdle]);
+
+  // --- Eye follow cursor logic ---
+  useEffect(() => {
+    const handleMove = (e) => {
+      const rect = avatarRef.current.getBoundingClientRect();
+      // Ambil posisi mouse global
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      // Hitung posisi mouse relatif ke avatar
+      const relX = mouseX - rect.left;
+      const relY = mouseY - rect.top;
+      // Fungsi untuk hitung posisi pupil
+      const calcPupil = (eye) => {
+        const dx = relX - eye.x;
+        const dy = relY - eye.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        const maxDist = eyeRadius;
+        if (dist < maxDist) return { x: dx, y: dy };
+        // Batasi gerak pupil
+        return { x: dx * maxDist / dist, y: dy * maxDist / dist };
+      };
+      setEyePos({
+        left: calcPupil(leftEye),
+        right: calcPupil(rightEye)
+      });
+    };
+    window.addEventListener('mousemove', handleMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMove);
+    };
+  }, [leftEye, rightEye, eyeRadius]);
+
+  return (
+    <section style={win95Window}>
+      <div style={win95Titlebar}>
+        <span style={{display:'flex',alignItems:'center',gap:8}}>
+          <img src="/assets/internet-explorer.png" alt="IE" style={{width:22,marginRight:6}} onError={e=>e.target.style.display='none'} />
+          <span>Welcome - Gandhi Satria Dewa</span>
+        </span>
+        <span>
+          <button style={win95Btn} title="Minimize">_</button>
+          <button style={win95Btn} title="Maximize">▢</button>
+          <button style={win95Btn} title="Close">✕</button>
+        </span>
       </div>
-      <p className="ie95-quote" style={{fontStyle: 'italic', color: '#000080', fontSize: 15}}>&quot;Building the web with a retro soul.&quot;</p>
-    </div>
-  </section>
-);
+      <div style={win95Content}>
+        <div
+          ref={avatarRef}
+          style={{
+            position: 'relative',
+            width: 256,
+            height: 256,
+            margin: '0 auto 18px auto',
+            border: '2px solid #808080',
+            background: '#fff',
+            boxShadow: '2px 2px 0 #0008',
+            borderRadius: 0,
+            overflow: 'hidden',
+            cursor: 'pointer',
+            display: 'inline-block',
+          }}
+        >
+          <img
+            src={isBlinking ? blinkFrames[blinkFrame] : profileAnimated}
+            alt="Gandhi Avatar"
+            style={{ width: 256, height: 256, display: 'block' }}
+            draggable={false}
+          />
+          {/* Bola mata kiri */}
+          {!isBlinking && (
+            <img
+              src={require('../assets/pupil.png')}
+              alt="pupil"
+              style={{
+                position: 'absolute',
+                left: leftEye.x - pupilRadius + eyePos.left.x,
+                top: leftEye.y - pupilRadius + eyePos.left.y,
+                width: pupilRadius * 2, // 10px
+                height: pupilRadius * 2, // 10px
+                pointerEvents: 'none',
+                userSelect: 'none',
+              }}
+              draggable={false}
+            />
+          )}
+          {/* Bola mata kanan */}
+          {!isBlinking && (
+            <img
+              src={require('../assets/pupil.png')}
+              alt="pupil"
+              style={{
+                position: 'absolute',
+                left: rightEye.x - pupilRadius + eyePos.right.x,
+                top: rightEye.y - pupilRadius + eyePos.right.y,
+                width: pupilRadius * 2, // 10px
+                height: pupilRadius * 2, // 10px
+                pointerEvents: 'none',
+                userSelect: 'none',
+              }}
+              draggable={false}
+            />
+          )}
+        </div>
+        <h1 style={{fontSize: 22, color: '#000080', margin: '0 0 8px 0', fontFamily: 'MS Sans Serif, Tahoma, Geneva, sans-serif'}}>Gandhi Satria Dewa</h1>
+        <h2 style={{fontSize: 15, color: '#222', fontWeight: 'normal', margin: '0 0 18px 0'}}>Web Developer & UI/UX Designer</h2>
+        <p style={{fontSize: 15, color: '#222', margin: '0 0 18px 0', lineHeight: 1.7}}>
+          Passionate about building interactive, user-friendly web applications with a touch of retro style.<br/>
+          Experienced in React, JavaScript, and modern web technologies.<br/>
+          Dedicated to delivering clean code, pixel-perfect design, and seamless user experience.
+        </p>
+        <div style={{margin: '18px 0'}}>
+          <a href="#projects" style={{
+            background: '#000080', color: '#fff', border: '2px outset #fff',
+            fontFamily: 'MS Sans Serif, Tahoma, Geneva, sans-serif', fontSize: 15,
+            padding: '8px 28px', textDecoration: 'none', borderRadius: 0, boxShadow: '1px 1px 0 #808080',
+            marginRight: 12, cursor: 'pointer', display: 'inline-block'
+          }}>View Projects</a>
+          <a href="#contact" style={{
+            background: '#c0c0c0', color: '#000080', border: '2px outset #fff',
+            fontFamily: 'MS Sans Serif, Tahoma, Geneva, sans-serif', fontSize: 15,
+            padding: '8px 28px', textDecoration: 'none', borderRadius: 0, boxShadow: '1px 1px 0 #808080',
+            cursor: 'pointer', display: 'inline-block'
+          }}>Contact Me</a>
+        </div>
+        <p style={{fontStyle: 'italic', color: '#000080', fontSize: 15, marginTop: 24}}>
+          "Blending modern web with the spirit of Windows 95. Let’s build something memorable together!"
+        </p>
+        {/* Petunjuk penggunaan:
+          - Gambar avatar harus memiliki area mata yang jelas (posisi bola mata diatur di leftEye dan rightEye)
+          - Bola mata (pupil) akan mengikuti gerakan kursor di area gambar avatar
+          - Untuk hasil terbaik, gunakan gambar dengan area putih mata yang cukup
+        */}
+      </div>
+    </section>
+  );
+};
 
 export default Hero;
