@@ -1,23 +1,31 @@
 {
   "files": {
     "main.css": "/windows95-portfolio/static/css/main.a1a5a78b.css",
-    "main.js": "/windows95-portfolio/static/js/main.b79b12b9.js",
+    "main.js": "/windows95-portfolio/static/js/main.97e75f06.js",
     "static/js/453.41811d64.chunk.js": "/windows95-portfolio/static/js/453.41811d64.chunk.js",
     "static/media/wallpaper1.jpg": "/windows95-portfolio/static/media/wallpaper1.888bdd17369af60ab9d1.jpg",
     "static/media/wallpaper2.jpg": "/windows95-portfolio/static/media/wallpaper2.57ad221e5b6f453f488d.jpg",
     "static/media/close.wav": "/windows95-portfolio/static/media/close.d6575fbd98ae1ecf1662.wav",
     "static/media/profile.jpg": "/windows95-portfolio/static/media/profile.9953522e2f04658c5d39.jpg",
+    "static/media/blink0.png": "/windows95-portfolio/static/media/blink0.b50518701a7a55ada55f.png",
+    "static/media/blink6.png": "/windows95-portfolio/static/media/blink6.b50518701a7a55ada55f.png",
+    "static/media/blink1.png": "/windows95-portfolio/static/media/blink1.b5d2ee4446e65fced256.png",
+    "static/media/blink5.png": "/windows95-portfolio/static/media/blink5.b5d2ee4446e65fced256.png",
+    "static/media/blink2.png": "/windows95-portfolio/static/media/blink2.b8d4efa1e4213a076cfa.png",
+    "static/media/profile_animated.png": "/windows95-portfolio/static/media/profile_animated.380b1ae7194c604bea87.png",
+    "static/media/blink4.png": "/windows95-portfolio/static/media/blink4.84ae2e94ca4789d55655.png",
+    "static/media/blink3.png": "/windows95-portfolio/static/media/blink3.2c7a568e292840a96eb3.png",
     "static/media/open.wav": "/windows95-portfolio/static/media/open.e758e4b03a23060754fe.wav",
     "static/media/click.wav": "/windows95-portfolio/static/media/click.4373782cd3def71dd662.wav",
     "static/media/cat-sitting-2.gif": "/windows95-portfolio/static/media/cat-sitting-2.31ea6fdfc595620d073d.gif",
     "static/media/cat-sitting-border.gif": "/windows95-portfolio/static/media/cat-sitting-border.9bfd35109b7fcf7f3160.gif",
     "index.html": "/windows95-portfolio/index.html",
     "main.a1a5a78b.css.map": "/windows95-portfolio/static/css/main.a1a5a78b.css.map",
-    "main.b79b12b9.js.map": "/windows95-portfolio/static/js/main.b79b12b9.js.map",
+    "main.97e75f06.js.map": "/windows95-portfolio/static/js/main.97e75f06.js.map",
     "453.41811d64.chunk.js.map": "/windows95-portfolio/static/js/453.41811d64.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a1a5a78b.css",
-    "static/js/main.b79b12b9.js"
+    "static/js/main.97e75f06.js"
   ]
 }
