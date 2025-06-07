@@ -164,14 +164,7 @@ const Hero = () => {
         mouseX = e.clientX;
         mouseY = e.clientY;
       }
-      // Jika sentuhan/mouse di luar avatar, bola mata kembali ke tengah
-      if (
-        mouseX < rect.left || mouseX > rect.right ||
-        mouseY < rect.top || mouseY > rect.bottom
-      ) {
-        setEyePos({ left: { x: 0, y: 0 }, right: { x: 0, y: 0 } });
-        return;
-      }
+      // Hitung posisi mouse/touch relatif ke avatar (meskipun di luar avatar)
       const relX = mouseX - rect.left;
       const relY = mouseY - rect.top;
       const calcPupil = (eye) => {
