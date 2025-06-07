@@ -14,6 +14,18 @@ A retro-themed, fully responsive portfolio web app built with React, designed to
 - **Recycle Bin**: Drag windows to the bin to close, restore from bin, and see dynamic icon changes.
 - **Touch & Keyboard Support**: All features work on both desktop and mobile/touch devices.
 
+## Planned Features
+
+- **Theme Switcher**: Switch between Windows 95, 98, and XP themes.
+- **Sound & Music Toggle**: Enable/disable retro sound effects and background music.
+- **Dark Mode**: Optional dark mode for better night-time viewing.
+- **Multi-language Support**: Pilih bahasa (Indonesia/English).
+- **Drag & Drop File Upload**: Simulasi upload file ke desktop.
+- **Customizable Wallpapers**: Upload gambar sendiri untuk wallpaper.
+- **Mini Games**: Tambahkan game retro sederhana (Minesweeper, Solitaire).
+- **Animated Boot/Shutdown Sequence**: Animasi startup dan shutdown seperti Windows 95.
+- **Accessibility Improvements**: Navigasi keyboard dan screen reader friendly.
+
 ## Screenshots
 
 ![Desktop Screenshot](./src/assets/screenshot-desktop.png)
