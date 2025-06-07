@@ -41,7 +41,7 @@ const CatPet = () => {
     }
     animRef.current.raf = setTimeout(loop, ANIMATION_INTERVAL);
     return () => clearTimeout(animRef.current.raf);
-  }, [catControl.anim, catControl.moving, catControl.dir]);
+  }, [catControl, catControl.anim, catControl.moving, catControl.dir]);
 
   // Keyboard control (arrow keys) hanya aktif di desktop (non-touch)
   useEffect(() => {

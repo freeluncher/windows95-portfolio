@@ -18,7 +18,6 @@ import closeSound from './assets/sound/close.wav';
 import wallpaper1 from './assets/wallpaper1.jpg';
 import wallpaper2 from './assets/wallpaper2.jpg';
 import RecycleBin from './pages/RecycleBin';
-import heroIcon from './assets/computer-4.png';
 import aboutMeIcon from './assets/computer-4.png';
 import skillsIcon from './assets/skill.png';
 import projectsIcon from './assets/directory_closed-4.png';
@@ -145,12 +144,6 @@ function RetroApp() {
   // Filter icon Cat Controller hanya muncul di mobile
   const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
   const filteredIcons = isTouchDevice ? iconsWithDynamicRecycleBin : iconsWithDynamicRecycleBin.filter(icon => !icon.mobileOnly);
-
-  // Helper: get zIndex for a window
-  const getZIndex = (name) => {
-    const win = openWindows.find(w => w.name === name);
-    return win ? win.z : 0;
-  };
 
   const handleOpenWindow = (windowName) => {
     window.DEBUG_OPEN = (window.DEBUG_OPEN || 0) + 1;

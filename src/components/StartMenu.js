@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SoundMenu from './SoundMenu';
 import wallpaperIcon from '../assets/directory_closed-4.png';
 

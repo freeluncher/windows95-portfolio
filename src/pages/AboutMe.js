@@ -4,7 +4,6 @@ import Dream from './Dream';
 import './AboutMe.css';
 
 // Gunakan asset yang sudah ada
-import folderIcon from '../assets/mydocs.png';
 import userPhoto from '../assets/profile.jpg'; // Ganti dengan foto user jika ada
 
 const win95Window = {
