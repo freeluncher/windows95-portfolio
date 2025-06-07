@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/windows95-portfolio/static/css/main.a1a5a78b.css",
-    "main.js": "/windows95-portfolio/static/js/main.32d13786.js",
+    "main.js": "/windows95-portfolio/static/js/main.12f73ec6.js",
     "static/js/453.41811d64.chunk.js": "/windows95-portfolio/static/js/453.41811d64.chunk.js",
     "static/media/wallpaper1.jpg": "/windows95-portfolio/static/media/wallpaper1.888bdd17369af60ab9d1.jpg",
     "static/media/wallpaper2.jpg": "/windows95-portfolio/static/media/wallpaper2.57ad221e5b6f453f488d.jpg",
@@ -21,11 +21,11 @@
     "static/media/cat-sitting-border.gif": "/windows95-portfolio/static/media/cat-sitting-border.9bfd35109b7fcf7f3160.gif",
     "index.html": "/windows95-portfolio/index.html",
     "main.a1a5a78b.css.map": "/windows95-portfolio/static/css/main.a1a5a78b.css.map",
-    "main.32d13786.js.map": "/windows95-portfolio/static/js/main.32d13786.js.map",
+    "main.12f73ec6.js.map": "/windows95-portfolio/static/js/main.12f73ec6.js.map",
     "453.41811d64.chunk.js.map": "/windows95-portfolio/static/js/453.41811d64.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a1a5a78b.css",
-    "static/js/main.32d13786.js"
+    "static/js/main.12f73ec6.js"
   ]
 }
