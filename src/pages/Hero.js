@@ -72,25 +72,39 @@ const Hero = () => {
   const blinkTimeout = useRef();
   const blinkInterval = useRef();
 
-  const leftEye = useMemo(() => ({ x: 108, y: 95 }), []);
-  const rightEye = useMemo(() => ({ x: 149, y: 95 }), []);
-  const eyeRadius = 1.8;
-  const pupilRadius = 4.2;
+  // Responsif: hitung ukuran avatar dan pupil berdasarkan lebar layar
+  const [avatarSize, setAvatarSize] = useState(256);
+  useEffect(() => {
+    const handleResize = () => {
+      const vw = Math.min(window.innerWidth, window.innerHeight);
+      setAvatarSize(Math.max(128, Math.min(256, Math.floor(vw * 0.8))));
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  // Hitung posisi mata dan pupil proporsional
+  const leftEye = useMemo(() => ({ x: Math.round(avatarSize * 0.42), y: Math.round(avatarSize * 0.37) }), [avatarSize]);
+  const rightEye = useMemo(() => ({ x: Math.round(avatarSize * 0.58), y: Math.round(avatarSize * 0.37) }), [avatarSize]);
+  const eyeRadius = Math.max(2, avatarSize * 0.007);
+  const pupilRadius = Math.max(3, Math.round(avatarSize * 0.016));
 
   useEffect(() => {
     let idleTimeout;
-    const setIdle = () => {
-      setIsIdle(true);
-    };
+    const setIdle = () => setIsIdle(true);
     const resetIdle = () => {
       setIsIdle(false);
       if (idleTimeout) clearTimeout(idleTimeout);
-      idleTimeout = setTimeout(setIdle, 2500); // 2.5 detik idle
+      idleTimeout = setTimeout(setIdle, 2500);
     };
     window.addEventListener('mousemove', resetIdle);
+    window.addEventListener('touchmove', resetIdle);
+    window.addEventListener('touchstart', resetIdle);
     resetIdle();
     return () => {
       window.removeEventListener('mousemove', resetIdle);
+      window.removeEventListener('touchmove', resetIdle);
+      window.removeEventListener('touchstart', resetIdle);
       if (idleTimeout) clearTimeout(idleTimeout);
     };
   }, []);
@@ -135,20 +149,37 @@ const Hero = () => {
   useEffect(() => {
     const handleMove = (e) => {
       const rect = avatarRef.current.getBoundingClientRect();
-      // Ambil posisi mouse global
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-      // Hitung posisi mouse relatif ke avatar
+      let mouseX, mouseY;
+      if (e.touches && e.touches[0]) {
+        mouseX = e.touches[0].clientX;
+        mouseY = e.touches[0].clientY;
+        // Cegah scroll saat touchmove di avatar
+        if (
+          mouseX >= rect.left && mouseX <= rect.right &&
+          mouseY >= rect.top && mouseY <= rect.bottom
+        ) {
+          e.preventDefault();
+        }
+      } else {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      }
+      // Jika sentuhan/mouse di luar avatar, bola mata kembali ke tengah
+      if (
+        mouseX < rect.left || mouseX > rect.right ||
+        mouseY < rect.top || mouseY > rect.bottom
+      ) {
+        setEyePos({ left: { x: 0, y: 0 }, right: { x: 0, y: 0 } });
+        return;
+      }
       const relX = mouseX - rect.left;
       const relY = mouseY - rect.top;
-      // Fungsi untuk hitung posisi pupil
       const calcPupil = (eye) => {
         const dx = relX - eye.x;
         const dy = relY - eye.y;
         const dist = Math.sqrt(dx*dx + dy*dy);
         const maxDist = eyeRadius;
         if (dist < maxDist) return { x: dx, y: dy };
-        // Batasi gerak pupil
         return { x: dx * maxDist / dist, y: dy * maxDist / dist };
       };
       setEyePos({
@@ -157,8 +188,10 @@ const Hero = () => {
       });
     };
     window.addEventListener('mousemove', handleMove);
+    window.addEventListener('touchmove', handleMove, { passive: false });
     return () => {
       window.removeEventListener('mousemove', handleMove);
+      window.removeEventListener('touchmove', handleMove);
     };
   }, [leftEye, rightEye, eyeRadius]);
 
@@ -180,8 +213,8 @@ const Hero = () => {
           ref={avatarRef}
           style={{
             position: 'relative',
-            width: 256,
-            height: 256,
+            width: avatarSize,
+            height: avatarSize,
             margin: '0 auto 18px auto',
             border: '2px solid #808080',
             background: '#fff',
@@ -190,12 +223,14 @@ const Hero = () => {
             overflow: 'hidden',
             cursor: 'pointer',
             display: 'inline-block',
+            maxWidth: '90vw',
+            maxHeight: '90vw',
           }}
         >
           <img
             src={isBlinking ? blinkFrames[blinkFrame] : profileAnimated}
             alt="Gandhi Avatar"
-            style={{ width: 256, height: 256, display: 'block' }}
+            style={{ width: avatarSize, height: avatarSize, display: 'block', maxWidth: '100%', maxHeight: '100%' }}
             draggable={false}
           />
           {/* Bola mata kiri */}
@@ -207,8 +242,8 @@ const Hero = () => {
                 position: 'absolute',
                 left: leftEye.x - pupilRadius + eyePos.left.x,
                 top: leftEye.y - pupilRadius + eyePos.left.y,
-                width: pupilRadius * 2, // 10px
-                height: pupilRadius * 2, // 10px
+                width: pupilRadius * 2,
+                height: pupilRadius * 2,
                 pointerEvents: 'none',
                 userSelect: 'none',
               }}
@@ -224,8 +259,8 @@ const Hero = () => {
                 position: 'absolute',
                 left: rightEye.x - pupilRadius + eyePos.right.x,
                 top: rightEye.y - pupilRadius + eyePos.right.y,
-                width: pupilRadius * 2, // 10px
-                height: pupilRadius * 2, // 10px
+                width: pupilRadius * 2,
+                height: pupilRadius * 2,
                 pointerEvents: 'none',
                 userSelect: 'none',
               }}
